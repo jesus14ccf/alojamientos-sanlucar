@@ -1,0 +1,52 @@
+.hero-section {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/img/ADOSADO.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+
+  .contenido-hero {
+    max-width: 800px;
+    padding: 20px;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .btn-reserva {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: white;
+        color: #1a5f7a;
+        transform: translateY(-3px);
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+$azul-mar: #1a5f7a;
+
+.header-principal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background-color: transparent;
+
+  .nav-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+
+  .menu {
+    ul {
+      display: flex !important;
+      list-style: none !important;
+      margin: 0;
+      padding: 0;
+      gap: 35px;
+
+      li a {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        transition: transform 0.2s ease-out, color 0.2s ease;
+
+        backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-font-smoothing: antialiased;
+
+        &:hover {
+          transform: scale(1.15);
+          color: #f7e6ca;
+        }
+
+        &.active {
+          color: white;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  // BOTÓN HAMBURGUESA (Móvil)
+  .hamburguesa {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    span {
+      width: 100%;
+      height: 3px;
+      background-color: white;
+      border-radius: 10px;
+    }
+  }
+}
+
+// MEDIA QUERY PARA MÓVIL
+@media (max-width: 768px) {
+  .header-principal {
+    .hamburguesa { display: flex; }
+
+    .menu {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: rgba(0,0,0,0.9);
+      overflow: hidden;
+      transition: height 0.3s ease;
+
+      ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+
+        li a { transform: none !important; }
+      }
+
+      &.menu-abierto { height: 260px; }
+    }
+  }
+}
