@@ -1,13 +1,21 @@
-// src/styles.scss
 $azul-mar: #1a5f7a;
 $azul-claro: #86b6bb;
+$azul-claro-fondo: #e0f2f7;
+$color-hueso: #f9f7f2;
 $arena: #f7e6ca;
 $blanco: #ffffff;
 $negro-suave: #333333;
+
+*{
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fdfdfd;
+  background-color: white;
+  color: white;
+  overflow-x: hidden;
+  width: 100%;
 }

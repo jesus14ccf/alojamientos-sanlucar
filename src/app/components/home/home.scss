@@ -2,8 +2,7 @@
   position: relative;
   height: 90vh;
   width: 100%;
-
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/img/ADOSADO.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/img/ADOSADO.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -15,11 +14,31 @@
   text-align: center;
 
   .contenido-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 800px;
-    padding: 20px;
+    width: 100%;
+
+    .logo-hero {
+      width: 90%;
+      max-width: 600px;
+      height: auto;
+      filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
+
+      @media (max-width: 400px) {
+        width: 250px; //en el iphone SE se veia mal, con esto lo soluciono
+      }
+    }
 
     h1 {
       font-size: 3.5rem;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+        margin-top: 20px;
+      }
+
       font-weight: 800;
       margin-bottom: 20px;
       text-transform: uppercase;
@@ -28,13 +47,19 @@
 
     p {
       font-size: 1.2rem;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+
       margin-bottom: 30px;
       font-weight: 300;
     }
 
-    .btn-reserva {
+    .btn-apartamentos {
       background-color: transparent;
       color: white;
+      border-radius: 5px;
       border: 2px solid white;
       padding: 12px 30px;
       font-size: 1rem;

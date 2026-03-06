@@ -1,4 +1,4 @@
-<header class="header-principal">
+<header class="header-principal" [class.scrolled]="isScrolled || !isHome">
   <div class="nav-container">
     <div class="logo">
       <a routerLink="/home">ALQUILERES CASA CURRITO</a>
@@ -13,8 +13,8 @@
     <nav class="menu" [class.menu-abierto]="menuAbierto">
       <ul>
         <li><a routerLink="/home" routerLinkActive="active" (click)="cerrarMenu()">INICIO</a></li>
-        <li><a routerLink="/apartamentos" routerLinkActive="active" (click)="cerrarMenu()">CASAS</a></li>
         <li><a routerLink="/sanlucar" routerLinkActive="active" (click)="cerrarMenu()">SANLÚCAR</a></li>
+        <li><a routerLink="/sobre-nosotros" routerLinkActive="active" (click)="cerrarMenu()">SOBRE NOSOTROS</a></li>
         <li><a routerLink="/contacto" routerLinkActive="active" (click)="cerrarMenu()">CONTACTO</a></li>
       </ul>
     </nav>

@@ -1,7 +1,7 @@
 $azul-mar: #1a5f7a;
 
 .header-principal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -10,6 +10,21 @@ $azul-mar: #1a5f7a;
   align-items: center;
   z-index: 1000;
   background-color: transparent;
+  transition: all 0.4s ease;
+
+  &.scrolled {
+    height: 70px;
+    background-color: #7f9bc5;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 15px rgba(26, 95, 122, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    .logo a,
+    .menu ul li a {
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
 
   .nav-container {
     width: 90%;
@@ -24,8 +39,8 @@ $azul-mar: #1a5f7a;
     text-decoration: none;
     color: white;
     font-weight: 800;
-    font-size: 1.1rem;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   .menu {
@@ -40,14 +55,10 @@ $azul-mar: #1a5f7a;
         display: inline-block;
         text-decoration: none;
         color: white;
-        font-size: 0.9rem;
+        font-size: 1.0rem;
         font-weight: 600;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
         transition: transform 0.2s ease-out, color 0.2s ease;
-
-        backface-visibility: hidden;
-        transform: translateZ(0);
-        -webkit-font-smoothing: antialiased;
 
         &:hover {
           transform: scale(1.15);
@@ -85,7 +96,17 @@ $azul-mar: #1a5f7a;
 // MEDIA QUERY PARA MÓVIL
 @media (max-width: 768px) {
   .header-principal {
-    .hamburguesa { display: flex; }
+    .nav-container {
+      width: 95%;
+    }
+
+    .hamburguesa {
+      display: flex;
+    }
+
+    .logo a {
+      font-size: 1rem;
+    }
 
     .menu {
       position: absolute;
@@ -93,19 +114,25 @@ $azul-mar: #1a5f7a;
       left: 0;
       width: 100%;
       height: 0;
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0, 0, 0, 0.9);
       overflow: hidden;
       transition: height 0.3s ease;
 
       ul {
+        width: 100%;
         flex-direction: column;
         align-items: center;
-        padding: 20px 0;
+        padding: 20px;
+        box-sizing: border-box;
 
-        li a { transform: none !important; }
+        li a {
+          transform: none !important;
+        }
       }
 
-      &.menu-abierto { height: 260px; }
+      &.menu-abierto {
+        height: 260px;
+      }
     }
   }
 }
