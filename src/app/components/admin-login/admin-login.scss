@@ -1,0 +1,94 @@
+$azul-corporativo: #1a5f7a;
+$blanco: #ffffff;
+$error: #ff4d4d;
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $blanco;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+
+  .login-card {
+    background: $azul-corporativo;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .login-logo {
+      width: 160px;
+      margin-bottom: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    h2 {
+      color: $blanco;
+      font-weight: 300;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: $blanco;
+        outline: none;
+        transition: 0.3s;
+
+        &:focus {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: $blanco;
+        }
+      }
+    }
+
+    .error-msg {
+      color: $error;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: $blanco;
+      color: $azul-corporativo;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #e3f2fd;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}

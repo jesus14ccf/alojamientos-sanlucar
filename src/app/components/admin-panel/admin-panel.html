@@ -1,1 +1,126 @@
-<p>admin-panel works!</p>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="logo-wrapper">
+      <img src="img/logo8.png" alt="Logo Sanlúcar" class="admin-logo">
+    </div>
+
+    <nav class="admin-nav">
+      <a class="nav-item" [class.active]="seccionActual === 'alojamientos'" (click)="cambiarSeccion('alojamientos')">
+        <i class="fas fa-home"></i> Alojamientos
+      </a>
+      <a class="nav-item" [class.active]="seccionActual === 'reservas'" (click)="cambiarSeccion('reservas')">
+        <i class="fas fa-calendar-check"></i> Reservas
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Panel de Administración</h1>
+    </header>
+
+    <ng-container *ngIf="seccionActual === 'alojamientos' && !mostrarFormulario">
+      <section class="admin-card">
+        <div class="card-header">
+          <h2>Mis Propiedades</h2>
+          <button class="btn-add" (click)="mostrarFormulario = true">+ Añadir Propiedad</button>
+        </div>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let casa of listaCasas">
+                <td><img [src]="'img/' + casa.imagen_principal" class="thumb"></td>
+                <td class="text-bold">{{ casa.nombre }}</td>
+                <td class="text-bold">{{ casa.precio_noche }}€</td>
+                <td>
+                  <button class="btn-del" (click)="borrarCasa(casa.id_propiedad!)">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </ng-container>
+
+    <section class="admin-card" *ngIf="mostrarFormulario">
+      <div class="card-header">
+        <h2>Añadir Nuevo Alojamiento</h2>
+        <button class="btn-del" (click)="mostrarFormulario = false">Cancelar</button>
+      </div>
+      <form (ngSubmit)="crearPropiedad()" class="admin-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" [(ngModel)]="nuevaPropiedad.nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label>Ubicación</label>
+            <input type="text" [(ngModel)]="nuevaPropiedad.ubicacion" name="ubicacion" required>
+          </div>
+          <div class="form-group">
+            <label>Precio por Noche</label>
+            <input type="number" [(ngModel)]="nuevaPropiedad.precio_noche" name="precio" required>
+          </div>
+          <div class="form-group">
+            <label>Capacidad (personas)</label>
+            <input type="number" [(ngModel)]="nuevaPropiedad.capacidad" name="capacidad" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Nombre de la Imagen (ej: casa1.jpg)</label>
+            <input type="text" [(ngModel)]="nuevaPropiedad.imagen_principal" name="imagen" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Descripción</label>
+            <textarea [(ngModel)]="nuevaPropiedad.descripcion" name="descripcion" rows="4"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-add" style="width: 100%; margin-top: 20px;">GUARDAR PROPIEDAD</button>
+      </form>
+    </section>
+
+    <section class="admin-card" *ngIf="seccionActual === 'reservas'">
+      <div class="card-header">
+        <h2>Gestión de Reservas</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Alojamiento</th>
+              <th>Fechas</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let res of listaReservas">
+              <td><strong>{{ res.nombre_cliente }}</strong><br><small>{{ res.email_cliente }}</small></td>
+              <td class="text-bold">{{ res.nombre_propiedad }}</td>
+              <td class="text-bold">{{ res.fecha_entrada }} / {{ res.fecha_salida }}</td>
+              <td><span class="status-pill" [ngClass]="res.estado.toLowerCase()">{{ res.estado }}</span></td>
+              <td class="actions-cell">
+                <ng-container *ngIf="res.estado === 'Pendiente'">
+                  <button class="btn-approve" (click)="actualizarEstado(res.id_reserva, 'Aceptada')">Aceptar</button>
+                  <button class="btn-reject" (click)="actualizarEstado(res.id_reserva, 'Rechazada')">Rechazar</button>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

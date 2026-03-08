@@ -1,0 +1,125 @@
+.apartamentos-container {
+  padding: 120px 5% 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .titulo-seccion {
+    color: #1a5f7a;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 800;
+  }
+}
+
+.grid-apartamentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.card-alojamiento {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px rgba(26, 95, 122, 0.15);
+  }
+
+  .imagen-container {
+    position: relative;
+    height: 220px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge-precio {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: #1a5f7a;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      span { font-size: 0.8rem; font-weight: 300; }
+    }
+  }
+
+.info-card {
+  padding: 20px;
+
+  h3 {
+    color: #1a5f7a;
+    margin: 0 0 10px 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+
+
+  .ubicacion {
+    color: #000000;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+
+    i {
+      color: #1a5f7a;
+      margin-right: 8px;
+    }
+  }
+
+
+  .detalles-iconos {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    color: #000000;
+    font-weight: 600;
+    font-size: 0.95rem;
+
+    span {
+      display: flex;
+      align-items: center;
+
+      i {
+        color: #1a5f7a;
+        margin-right: 8px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .descripcion-corta {
+    color: #333333;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .btn-detalles {
+    width: 100%;
+    background: transparent;
+    border: 2px solid #1a5f7a;
+    color: #1a5f7a;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #1a5f7a;
+      color: white;
+    }
+  }
+}
+}

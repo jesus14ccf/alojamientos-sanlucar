@@ -1,1 +1,21 @@
-<p>admin-login works!</p>
+<div class="login-page">
+  <div class="login-card">
+    <img src="img/logo8.png" alt="Logo" class="login-logo"> <h2>Panel de Administración</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" [(ngModel)]="username" name="usuario" required>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="clave" required>
+      </div>
+
+      <p class="error-msg" *ngIf="error">{{ error }}</p>
+
+      <button type="submit" class="btn-login">ENTRAR</button>
+    </form>
+  </div>
+</div>

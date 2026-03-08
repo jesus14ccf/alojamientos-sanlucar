@@ -1,1 +1,26 @@
-<p>apartamentos works!</p>
+<div class="apartamentos-container">
+  <h2 class="titulo-seccion">Nuestros Alojamientos en Sanlúcar</h2>
+
+  <div class="grid-apartamentos">
+    <div class="card-alojamiento" *ngFor="let casa of listaPropiedades">
+      <div class="imagen-container">
+        <img [src]="'/img/' + casa.imagen_principal" [alt]="casa.nombre">
+      </div>
+
+      <div class="info-card">
+        <h3>{{ casa.nombre }}</h3>
+        <p class="ubicacion"><i class="fas fa-map-marker-alt"></i> {{ casa.ubicacion }}</p>
+
+        <div class="detalles-iconos">
+          <span><i class="fas fa-users"></i> {{ casa.capacidad }} personas</span>
+        </div>
+
+        <p class="descripcion-corta">{{ casa.descripcion }}</p>
+
+        <button class="btn-detalles" [routerLink]="['/apartamento', casa.id_propiedad]">
+          VER DISPONIBILIDAD
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
