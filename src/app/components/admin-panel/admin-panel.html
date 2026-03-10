@@ -35,17 +35,38 @@
               <tr>
                 <th>Foto</th>
                 <th>Nombre</th>
+                <th>Visibilidad</th>
                 <th>Precio</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let casa of listaCasas">
-                <td><img [src]="'img/' + casa.imagen_principal" class="thumb"></td>
+                <td><img [src]="'https://alojamientossanlucar.es/api/uploads/' + casa.imagen_principal" class="thumb">
+                </td>
+
                 <td class="text-bold">{{ casa.nombre }}</td>
+
+                <span class="status-pill" [ngClass]="casa.visible == 0 ? 'rechazada' : 'aceptada'"
+                  style="display: inline-block; margin-top: 5px;">
+                  {{ casa.visible == 0 ? 'Oculta' : 'Publica' }}
+                </span>
                 <td class="text-bold">{{ casa.precio_noche }}€</td>
+
                 <td>
+
+                  <button class="btn-approve" [style.background]="casa.visible !== 0 ? '#ffc107' : '#17a2b8'"
+                    style="color: black; margin-right: 5px;" (click)="cambiarVisibilidad(casa)">
+                    {{ casa.visible == 0 ? 'Mostrar' : 'Ocultar' }}
+                  </button>
+
+                  <button class="btn-approve" style="background: #6f42c1; color: white; margin-right: 5px;"
+                    (click)="abrirGestorFotos(casa)">
+                    <i class="fas fa-images"></i> Galería
+                  </button>
+
                   <button class="btn-del" (click)="borrarCasa(casa.id_propiedad!)">Borrar</button>
+
                 </td>
               </tr>
             </tbody>
@@ -80,6 +101,15 @@
           <div class="form-group full-width">
             <label>Nombre de la Imagen (ej: casa1.jpg)</label>
             <input type="text" [(ngModel)]="nuevaPropiedad.imagen_principal" name="imagen" required>
+          </div>
+          <div class="form-group full-width">
+
+            <label>Fotos de la Galería (Selecciona varias a la vez)</label>
+            <input type="file" (change)="onFileSelected($event)" multiple accept="image/*" class="file-input"
+              style="padding: 10px; background: #fff; border: 1px dashed #1a5f7a; cursor: pointer;">
+            <small style="color: #666; margin-top: 5px;">Mantén pulsada la tecla CTRL para elegir varias
+              fotos.</small>
+
           </div>
           <div class="form-group full-width">
             <label>Descripción</label>
@@ -123,4 +153,53 @@
       </div>
     </section>
   </main>
+  <div class="modal-overlay" *ngIf="mostrarGestorFotos">
+    <div class="modal-content"
+      style="max-width: 800px; width: 90%; background: white; padding: 20px; border-radius: 8px; position: relative; max-height: 90vh; overflow-y: auto;">
+
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1a5f7a; padding-bottom: 10px; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #1a5f7a;">Galería de: {{ casaSeleccionadaParaFotos?.nombre }}</h2>
+        <button (click)="cerrarGestorFotos()"
+          style="background: #dc3545; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px;">X
+          Cerrar</button>
+      </div>
+
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h4 style="margin-top: 0;">Añadir más fotos</h4>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="file" multiple accept="image/*" (change)="onFotosExtraSelected($event)"
+            style="border: 1px solid #ccc; padding: 5px; flex-grow: 1;">
+          <button class="btn-approve" (click)="subirFotosNuevas()" [disabled]="fotosExtraNuevas.length === 0"
+            style="background: #1a5f7a; color: white;">Subir Fotos</button>
+        </div>
+      </div>
+
+      <h4>Fotos actuales en la galería ({{ fotosActuales.length }})</h4>
+
+      <div *ngIf="fotosActuales.length === 0"
+        style="padding: 20px; text-align: center; color: #666; border: 1px dashed #ccc;">
+        Esta propiedad aún no tiene fotos en su galería.
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+
+        <div *ngFor="let foto of fotosActuales"
+          style="position: relative; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <img [src]="'https://alojamientossanlucar.es/api/uploads/' + foto.ruta_foto"
+            style="width: 100%; height: 120px; object-fit: cover; display: block;">
+
+          <button (click)="eliminarFoto(foto.id_foto)"
+            style="position: absolute; top: 5px; right: 5px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center;"
+            title="Borrar foto">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
 </div>

@@ -12,9 +12,14 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.scss',
 })
-export class AdminPanel implements OnInit{
+export class AdminPanel implements OnInit {
   listaCasas: Propiedad[] = [];
   listaReservas: Reserva[] = [];
+  fotosSeleccionadas: File[] = [];
+  mostrarGestorFotos: boolean = false;
+  casaSeleccionadaParaFotos: any = null;
+  fotosActuales: any[] = [];
+  fotosExtraNuevas: File[] = [];
 
   seccionActual: 'alojamientos' | 'reservas' = 'alojamientos';
   mostrarFormulario: boolean = false;
@@ -26,7 +31,7 @@ export class AdminPanel implements OnInit{
     precio_noche: 0,
     imagen_principal: '',
     capacidad: 1,
-    id_usuario: 1
+    id_usuario: 1,
   };
 
   constructor(
@@ -39,15 +44,21 @@ export class AdminPanel implements OnInit{
     this.cargarDatos();
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.fotosSeleccionadas = Array.from(event.target.files);
+    }
+  }
+
   cargarDatos() {
     this.propiedadService.getPropiedades().subscribe({
       next: (data: Propiedad[]) => (this.listaCasas = data),
-      error: (err: any) => console.error('Error al cargar propiedades:', err)
+      error: (err: any) => console.error('Error al cargar propiedades:', err),
     });
 
     this.reservaService.listarReservas().subscribe({
       next: (data: Reserva[]) => (this.listaReservas = data),
-      error: (err: any) => console.error('Error al listar reservas', err)
+      error: (err: any) => console.error('Error al listar reservas', err),
     });
   }
 
@@ -58,14 +69,47 @@ export class AdminPanel implements OnInit{
 
   crearPropiedad() {
     this.propiedadService.createPropiedad(this.nuevaPropiedad).subscribe({
-      next: () => {
-        alert('Propiedad añadida con éxito');
-        this.mostrarFormulario = false;
-        this.cargarDatos();
-        this.nuevaPropiedad = { nombre: '', descripcion: '', ubicacion: '', precio_noche: 0, imagen_principal: '', capacidad: 1, id_usuario: 1 };
+      next: (res: any) => {
+        const nuevoId = res.id;
+
+        if (this.fotosSeleccionadas.length > 0 && nuevoId) {
+          this.propiedadService
+            .uploadFotos(nuevoId, this.fotosSeleccionadas)
+            .subscribe({
+              next: () => {
+                alert('Propiedad y fotos de la galería añadidas con éxito');
+                this.resetearFormulario();
+              },
+              error: (err) => {
+                console.error('Error al subir las fotos:', err);
+                alert(
+                  'La propiedad se creó, pero hubo un fallo al subir las fotos extra.',
+                );
+                this.resetearFormulario();
+              },
+            });
+        } else {
+          alert('Propiedad añadida con éxito (sin fotos de galería)');
+          this.resetearFormulario();
+        }
       },
-      error: (err) => alert('Error al crear la propiedad')
+      error: (err) => alert('Error al crear la propiedad'),
     });
+  }
+
+  resetearFormulario() {
+    this.mostrarFormulario = false;
+    this.cargarDatos();
+    this.fotosSeleccionadas = [];
+    this.nuevaPropiedad = {
+      nombre: '',
+      descripcion: '',
+      ubicacion: '',
+      precio_noche: 0,
+      imagen_principal: '',
+      capacidad: 1,
+      id_usuario: 1,
+    };
   }
 
   borrarCasa(id: number): void {
@@ -83,7 +127,7 @@ export class AdminPanel implements OnInit{
   actualizarEstado(idReserva: number, nuevoEstado: string): void {
     this.reservaService.cambiarEstado(idReserva, nuevoEstado).subscribe({
       next: () => this.cargarDatos(),
-      error: (err) => alert('Error al actualizar la reserva')
+      error: (err) => alert('Error al actualizar la reserva'),
     });
   }
 
@@ -92,4 +136,68 @@ export class AdminPanel implements OnInit{
     this.router.navigate(['/login']);
   }
 
+  cambiarVisibilidad(casa: any) {
+    const nuevoEstado = casa.visible == 0 ? 1 : 0;
+    this.propiedadService
+      .toggleVisibilidad(casa.id_propiedad, nuevoEstado)
+      .subscribe({
+        next: () => {
+          this.cargarDatos();
+        },
+        error: (err) => alert('Error al cambiar la visibilidad de la casa'),
+      });
+  }
+
+  abrirGestorFotos(casa: any) {
+    this.casaSeleccionadaParaFotos = casa;
+    this.mostrarGestorFotos = true;
+    this.cargarFotosDeLaCasa(casa.id_propiedad);
+  }
+
+  cerrarGestorFotos() {
+    this.mostrarGestorFotos = false;
+    this.casaSeleccionadaParaFotos = null;
+    this.fotosActuales = [];
+    this.fotosExtraNuevas = [];
+  }
+
+
+  cargarFotosDeLaCasa(idPropiedad: number) {
+    this.propiedadService.getFotosPropiedad(idPropiedad).subscribe({
+      next: (fotos) => {
+        this.fotosActuales = fotos;
+      },
+      error: (err) => console.error('Error al cargar fotos', err)
+    });
+  }
+
+  eliminarFoto(idFoto: number) {
+    if(confirm('¿Seguro que quieres borrar esta foto de forma permanente?')) {
+      this.propiedadService.deleteFoto(idFoto).subscribe({
+        next: () => {
+          this.cargarFotosDeLaCasa(this.casaSeleccionadaParaFotos.id_propiedad);
+        },
+        error: (err) => alert('Error al borrar la foto')
+      });
+    }
+  }
+
+  onFotosExtraSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.fotosExtraNuevas = Array.from(event.target.files);
+    }
+  }
+
+  subirFotosNuevas() {
+    if (this.fotosExtraNuevas.length === 0) return;
+
+    this.propiedadService.uploadFotos(this.casaSeleccionadaParaFotos.id_propiedad, this.fotosExtraNuevas).subscribe({
+      next: () => {
+        alert('Fotos añadidas a la galería');
+        this.fotosExtraNuevas = [];
+        this.cargarFotosDeLaCasa(this.casaSeleccionadaParaFotos.id_propiedad);
+      },
+      error: (err) => alert('Error al subir las nuevas fotos')
+    });
+  }
 }

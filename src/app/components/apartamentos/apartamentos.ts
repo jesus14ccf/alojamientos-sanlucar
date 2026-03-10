@@ -21,7 +21,7 @@ export class Apartamentos implements OnInit {
   cargarPropiedades() {
     this.apiService.getPropiedades().subscribe({
       next: (datos) => {
-        this.listaPropiedades = datos;
+        this.listaPropiedades = datos.filter(casa => casa.visible != 0);
         console.log('Casas recibidas:', this.listaPropiedades); //voy a comprobar si las recibe por el inspector
       },
       error: (err) => {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 export interface Propiedad {
   id_propiedad: number;
   nombre: string;
@@ -12,6 +11,7 @@ export interface Propiedad {
   imagen_principal: string;
   id_usuario: number;
   capacidad: number;
+  visible?: number;
 }
 
 export interface Foto {
@@ -26,8 +26,11 @@ export interface Foto {
 export class Propiedades {
   private URL_API = 'https://alojamientossanlucar.es/api/admin_propiedades.php';
   private URL_OCUPACION = 'https://alojamientossanlucar.es/api/ocupacion.php';
+  private URL_SUBIR_FOTOS = 'https://alojamientossanlucar.es/api/subir_fotos.php';
+  private URL_FOTOS = 'https://alojamientossanlucar.es/api/fotos.php';
+  private URL_BORRAR_FOTO = 'https://alojamientossanlucar.es/api/borrar_foto.php';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPropiedades(): Observable<Propiedad[]> {
     return this.http.get<Propiedad[]>(this.URL_API);
@@ -50,8 +53,31 @@ export class Propiedades {
     return this.http.delete(`${this.URL_API}?id=${id}`);
   }
 
-getFotosPropiedad(id: number): Observable<Foto[]> {
-  return this.http.get<Foto[]>(`https://alojamientossanlucar.es/api/fotos.php?id_propiedad=${id}`);
-}
+  getFotosPropiedad(id: number): Observable<Foto[]> {
+    return this.http.get<Foto[]>(`${this.URL_FOTOS}?id_propiedad=${id}`);
+  }
 
+  uploadFotos(idPropiedad: number, fotos: File[]): Observable<any> {
+    const formData = new FormData();
+    formData.append('id_propiedad', idPropiedad.toString());
+
+    for (let i = 0; i < fotos.length; i++) {
+      formData.append('fotos[]', fotos[i]);
+    }
+
+    return this.http.post(this.URL_SUBIR_FOTOS, formData);
+  }
+
+  deleteFoto(idFoto: number): Observable<any> {
+    return this.http.delete(`${this.URL_BORRAR_FOTO}?id_foto=${idFoto}`);
+  }
+
+  toggleVisibilidad(id: number, estadoVisible: number): Observable<any> {
+    const payload = {
+      accion: 'visibilidad',
+      id_propiedad: id,
+      visible: estadoVisible,
+    };
+    return this.http.put(this.URL_API, payload);
+  }
 }
