@@ -1,3 +1,11 @@
+@use "sass:color";
+@import 'aos/dist/aos.css';
+
+
+$navy-currito: #1e3a5f;
+$grey-texto: #444444;
+$grey-light: #f4f6f8;
+
 .hero-section {
   position: relative;
   height: 90vh;
@@ -34,27 +42,25 @@
 
     h1 {
       font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
 
       @media (max-width: 768px) {
         font-size: 2rem;
         margin-top: 20px;
       }
-
-      font-weight: 800;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
 
     p {
       font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-weight: 300;
 
       @media (max-width: 768px) {
         font-size: 1rem;
       }
-
-      margin-bottom: 30px;
-      font-weight: 300;
     }
 
     .btn-apartamentos {
@@ -74,5 +80,279 @@
         transform: translateY(-3px);
       }
     }
+  }
+}
+
+.animable {
+  opacity: 0;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.anim-fade-up {
+  transform: translateY(60px);
+}
+
+.anim-slide-left {
+  transform: translateX(-100px);
+}
+
+.anim-slide-right {
+  transform: translateX(100px);
+}
+
+.animable.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.seccion-bienvenida {
+  background-color: #ffffff;
+  padding: 80px 20px 60px 20px;
+  text-align: center;
+}
+
+.contenedor-centrado {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.seccion-bienvenida h2 {
+  color: $navy-currito;
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.linea-decorativa {
+  width: 80px;
+  height: 3px;
+  background-color: $navy-currito;
+  margin: 0 auto 35px auto;
+}
+
+.texto-principal {
+  font-size: 1.25rem;
+  color: $grey-texto;
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+.seccion-ancho-completo {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banda-info {
+  display: flex;
+  width: 100%;
+  min-height: 60vh;
+  background-color: $grey-light;
+}
+
+.banda-alternada {
+  flex-direction: row-reverse;
+  background-color: $grey-light;
+}
+
+
+.mitad-imagen {
+  width: 50%;
+  position: relative;
+}
+
+.mitad-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.mitad-texto {
+  width: 50%;
+  padding: 8% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.mitad-texto h3 {
+  color: $navy-currito;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mitad-texto p {
+  color: $grey-texto;
+  line-height: 1.8;
+  margin-bottom: 35px;
+  font-size: 1.15rem;
+}
+
+.enlace-banda {
+  color: $navy-currito;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  border-bottom: 2px solid transparent;
+}
+
+.enlace-banda:hover {
+  color: color.adjust($navy-currito, $lightness: 15%);
+  border-bottom: 2px solid color.adjust($navy-currito, $lightness: 15%);
+  padding-bottom: 5px;
+}
+
+.seccion-servicios {
+  background-color: #ffffff;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.cabecera-servicios h2 {
+  color: $navy-currito;
+  font-size: 2.2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.grid-servicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.servicio-item {
+  padding: 20px;
+}
+
+.servicio-item i {
+  font-size: 3rem;
+  color: $navy-currito;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.servicio-item:hover i {
+  transform: translateY(-10px);
+}
+
+.servicio-item h4 {
+  color: $navy-currito;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.servicio-item p {
+  color: $grey-texto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+
+.seccion-cta {
+  background-color: $navy-currito;
+  padding: 80px 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.contenedor-cta {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.seccion-cta h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.seccion-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.btn-cta {
+  display: inline-block;
+  background-color: #ffffff;
+  color: $navy-currito;
+  padding: 18px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta:hover {
+  background-color: $grey-light;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .seccion-servicios {
+    padding: 60px 20px;
+  }
+
+  .seccion-cta h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 1100px) {
+
+  .banda-info,
+  .banda-alternada {
+    flex-direction: column !important;
+  }
+
+  .mitad-imagen,
+  .mitad-texto {
+    width: 100% !important;
+  }
+
+  .mitad-imagen {
+    position: relative;
+    height: 350px;
+  }
+
+  .mitad-imagen img {
+    position: relative;
+  }
+
+  .mitad-texto {
+    padding: 60px 30px !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mitad-texto h3 {
+    font-size: 1.6rem;
+  }
+
+  .enlace-banda {
+    align-self: center !important;
   }
 }

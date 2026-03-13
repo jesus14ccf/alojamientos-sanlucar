@@ -10,10 +10,12 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
+
 export class App {
   menuAbierto = false;
   isScrolled = false;
   isHome = true;
+  whatsappAbierto: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -34,5 +36,9 @@ export class App {
 
   cerrarMenu() {
     this.menuAbierto = false;
+  }
+
+  toggleWhatsapp() {
+    this.whatsappAbierto = !this.whatsappAbierto;
   }
 }

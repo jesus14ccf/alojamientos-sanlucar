@@ -24,3 +24,72 @@
 <main>
   <router-outlet></router-outlet>
 </main>
+
+<div class="whatsapp-widget">
+
+  <div class="whatsapp-popup" [class.abierto]="whatsappAbierto">
+    <div class="whatsapp-header">
+      <div class="whatsapp-header-titulo">
+        <i class="fab fa-whatsapp"></i> Casa Currito
+      </div>
+      <button class="btn-cerrar-wa" (click)="toggleWhatsapp()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="whatsapp-body">
+      <div class="mensaje-burbuja">
+        <strong>Atención al cliente</strong>
+        <p>¡Hola! 👋<br>¿En qué podemos ayudarte? Consultanos lo que quieras</p>
+        <span class="hora-mensaje">Ahora mismo</span>
+      </div>
+
+      <a href="https://wa.me/34600000000?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20los%20alojamientos%20Casa%20Currito."
+        target="_blank" class="btn-iniciar-chat">
+        <i class="fab fa-whatsapp"></i> INICIAR CHAT
+      </a>
+    </div>
+  </div>
+
+  <button class="whatsapp-btn-flotante" (click)="toggleWhatsapp()">
+    <i class="fab fa-whatsapp"></i>
+  </button>
+
+</div>
+
+<footer class="footer-currito">
+
+  <div class="footer-contenedor">
+
+    <div class="footer-columna">
+      <img src="/img/logo8.png" alt="Logo casa currito" class="logo-footer">
+    </div>
+
+    <div class="footer-columna">
+      <h4>Enlaces Rápidos</h4>
+      <ul>
+        <li><a routerLink="/">Inicio</a></li>
+        <li><a routerLink="/apartamentos">Nuestros Alojamientos</a></li>
+        <li><a routerLink="/sanlucar">Descubre Sanlúcar</a></li>
+        <li><a routerLink="/sobre-nosotros">Conócenos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-columna">
+      <h4>Contacto</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Sanlúcar de Barrameda, Cádiz</p>
+      <p><i class="fas fa-phone"></i> +34 600 000 000</p>
+      <p><i class="fas fa-envelope"></i> info@casacurrito.com</p>
+      <div class="redes-sociales">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Alojamientos Casa Currito. Todos los derechos reservados.</p>
+  </div>
+
+</footer>
