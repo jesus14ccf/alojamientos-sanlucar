@@ -29,6 +29,7 @@ export class Propiedades {
   private URL_SUBIR_FOTOS = 'https://alojamientossanlucar.es/api/subir_fotos.php';
   private URL_FOTOS = 'https://alojamientossanlucar.es/api/fotos.php';
   private URL_BORRAR_FOTO = 'https://alojamientossanlucar.es/api/borrar_foto.php';
+  private URL_BUSCAR = 'https://alojamientossanlucar.es/api/get_propiedades.php';
 
   constructor(private http: HttpClient) {}
 
@@ -43,6 +44,11 @@ export class Propiedades {
   //para poder filtrar fechas en el calendario
   getOcupacion(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.URL_OCUPACION}?id=${id}`);
+  }
+
+  //   Filtrar alojamientos en apartamentos.html pasandole fechas
+  getPropiedadesDisponibles(fechaEntrada: string, fechaSalida: string): Observable<Propiedad[]> {
+    return this.http.get<Propiedad[]>(`${this.URL_BUSCAR}?entrada=${fechaEntrada}&salida=${fechaSalida}`);
   }
 
   createPropiedad(p: Propiedad): Observable<any> {

@@ -1,38 +1,178 @@
+@use "sass:color";
+$navy-currito: #1e3a5f;
+$color-acento: #d4af37;
+
 .apartamentos-container {
-  padding: 120px 5% 60px;
-  max-width: 1400px;
+  padding: 100px 5% 80px;
+  max-width: 1300px;
   margin: 0 auto;
+  margin-top: -90px;
+  background-color: #f8f9fa;
 
   .titulo-seccion {
-    color: #1a5f7a;
-    font-size: 2.5rem;
+    color: $navy-currito;
+    font-size: 2.8rem;
     text-align: center;
-    margin-bottom: 50px;
-    font-weight: 800;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+    text-transform: uppercase;
   }
 }
 
 .grid-apartamentos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
 }
 
 .card-alojamiento {
   background: white;
-  border-radius: 15px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 45px rgba(26, 95, 122, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(30, 58, 95, 0.15);
   }
 
   .imagen-container {
     position: relative;
-    height: 220px;
+    height: 250px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .badge-precio {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba($navy-currito, 0.9);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  &:hover .imagen-container img {
+    transform: scale(1.05);
+  }
+
+  .info-card {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    h3 {
+      color: $navy-currito;
+      margin: 0 0 8px 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .ubicacion {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      font-weight: 400;
+
+      i {
+        color: $color-acento;
+        margin-right: 5px;
+      }
+    }
+
+    .detalles-iconos {
+      display: flex;
+      gap: 20px;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      color: #555;
+      font-size: 0.9rem;
+
+      span {
+        display: flex;
+        align-items: center;
+
+        i {
+          color: $navy-currito;
+          margin-right: 8px;
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .descripcion-corta {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      flex-grow: 1;
+      display: -webkit-box;
+      line-clamp: 3;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .btn-detalles {
+      width: 100%;
+      background: $navy-currito;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+
+      &:hover {
+        background: color.adjust($navy-currito, $lightness: 10%);
+      }
+    }
+  }
+}
+
+.carrusel-hero {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  background-color: $navy-currito;
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+
+    &.activo {
+      opacity: 1;
+      z-index: 2;
+    }
 
     img {
       width: 100%;
@@ -40,86 +180,145 @@
       object-fit: cover;
     }
 
-    .badge-precio {
+    .slide-overlay {
       position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: #1a5f7a;
+      bottom: 40px;
+      left: 5%;
+      background: rgba($navy-currito, 0.85);
       color: white;
-      padding: 8px 15px;
+      padding: 12px 25px;
       border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      span { font-size: 0.8rem; font-weight: 300; }
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+      h2 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
     }
   }
+}
 
-.info-card {
-  padding: 20px;
+.buscador-flotante {
+  position: relative;
+  max-width: 800px;
+  margin: -60px auto 40px auto;
+  z-index: 10;
+  padding: 0 40px;
 
-  h3 {
-    color: #1a5f7a;
-    margin: 0 0 10px 0;
-    font-size: 1.4rem;
-    font-weight: 800;
-  }
-
-
-  .ubicacion {
-    color: #000000;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    font-weight: 600;
-
-    i {
-      color: #1a5f7a;
-      margin-right: 8px;
-    }
-  }
-
-
-  .detalles-iconos {
+  .buscador-inner {
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 0.95rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    gap: 50px;
+  }
 
-    span {
-      display: flex;
-      align-items: center;
+  .campo-busqueda {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
-      i {
-        color: #1a5f7a;
-        margin-right: 8px;
-        font-size: 1rem;
+    label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: $navy-currito;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    input[type="date"] {
+      border: none;
+      outline: none;
+      font-family: inherit;
+      color: #555;
+      font-size: 1rem;
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+
+  .separador {
+    width: 1px;
+    height: 40px;
+    background-color: #ddd;
+    margin: 0 30px;
+  }
+
+  .btn-buscar {
+    background: color.adjust($navy-currito, $lightness: 10%);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &:hover {
+      background: $navy-currito;
+      transform: scale(1.05);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .apartamentos-container {
+    padding-top: 80px;
+  }
+
+  .grid-apartamentos {
+    grid-template-columns: 1fr;
+  }
+
+  .carrusel-hero {
+    height: 250px;
+
+    .slide .slide-overlay {
+      bottom: 20px;
+      padding: 8px 15px;
+
+      h2 {
+        font-size: 1.2rem;
       }
     }
   }
 
-  .descripcion-corta {
-    color: #333333;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+  .buscador-flotante {
+    padding-top: 90px;
+    margin-bottom: -20px;
+    background-color: #f8f9fa;
+    z-index: 0;
 
-  .btn-detalles {
-    width: 100%;
-    background: transparent;
-    border: 2px solid #1a5f7a;
-    color: #1a5f7a;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    .buscador-inner {
+      flex-direction: column;
+      border-radius: 20px;
+      padding: 20px;
+      gap: 15px;
+    }
 
-    &:hover {
-      background: #1a5f7a;
-      color: white;
+    .separador {
+      width: 100%;
+      height: 1px;
+      margin: 10px 0;
+    }
+
+    .campo-busqueda {
+      width: 100%;
+    }
+
+    .btn-buscar {
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
     }
   }
-}
 }
