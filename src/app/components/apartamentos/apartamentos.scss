@@ -203,7 +203,7 @@ $color-acento: #d4af37;
 .buscador-flotante {
   position: relative;
   max-width: 800px;
-  margin: -60px auto 40px auto;
+  margin: -80px auto 40px auto;
   z-index: 10;
   padding: 0 40px;
 
@@ -266,6 +266,72 @@ $color-acento: #d4af37;
     &:hover {
       background: $navy-currito;
       transform: scale(1.05);
+    }
+  }
+}
+
+.hero-static {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)),
+    url('/img/ADOSADO.jpg') center/cover no-repeat;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+
+  .hero-overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px;
+  }
+
+  .hero-text-container {
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .breadcrumbs {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-top: 15px;
+
+    .home-link {
+      color: $navy-currito;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-static {
+    height: 280px;
+
+    .hero-overlay {
+      padding-top: 60px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .breadcrumbs {
+      font-size: 0.9rem;
     }
   }
 }

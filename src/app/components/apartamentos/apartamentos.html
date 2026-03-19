@@ -1,13 +1,10 @@
-<div class="carrusel-hero" *ngIf="listaPropiedades.length > 0">
-  <div class="slide" *ngFor="let casa of listaPropiedades; let i = index" [class.activo]="i === imagenActualIndex">
-
-    <img [src]="'https://alojamientossanlucar.es/api/uploads/' + casa.imagen_principal" [alt]="casa.nombre">
-
-    <div class="slide-overlay">
-      <h2>{{ casa.nombre }}</h2>
+<section class="hero-static">
+  <div class="hero-overlay">
+    <div class="hero-text-container">
+      <h1>Alojamientos</h1>
     </div>
   </div>
-</div>
+</section>
 
 <div class="buscador-flotante">
   <div class="buscador-inner">
