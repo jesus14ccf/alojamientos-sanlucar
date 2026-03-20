@@ -14,9 +14,6 @@ import { Propiedades, Propiedad } from '../../services/propiedades';
 export class Apartamentos implements OnInit {
   listaPropiedades: Propiedad[] = [];
 
-  imagenActualIndex: number = 0;
-  intervaloCarrusel: any;
-
   fechaEntrada: string = '';
   fechaSalida: string = '';
 
@@ -24,8 +21,6 @@ export class Apartamentos implements OnInit {
 
   ngOnInit(): void {
     this.cargarPropiedades();
-
-    this.iniciarCarrusel();
   }
 
   buscarDisponibilidad() {
@@ -61,15 +56,6 @@ export class Apartamentos implements OnInit {
     });
   }
 
-  iniciarCarrusel() {
-    this.intervaloCarrusel = setInterval(() => {
-      if (this.listaPropiedades && this.listaPropiedades.length > 0) {
-        this.imagenActualIndex =
-          (this.imagenActualIndex + 1) % this.listaPropiedades.length;
-      }
-    }, 4000);
-  }
-
   cargarPropiedades() {
     this.apiService.getPropiedades().subscribe({
       next: (datos) => {
@@ -82,9 +68,4 @@ export class Apartamentos implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    if (this.intervaloCarrusel) {
-      clearInterval(this.intervaloCarrusel);
-    }
-  }
 }

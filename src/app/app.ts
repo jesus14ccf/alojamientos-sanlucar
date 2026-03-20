@@ -29,7 +29,8 @@ export class App {
         this.isHome =
           event.urlAfterRedirects === '/home' ||
           event.urlAfterRedirects === '/' ||
-          event.urlAfterRedirects === '/apartamentos';
+          event.urlAfterRedirects === '/apartamentos' ||
+          event.urlAfterRedirects.startsWith('/apartamento/');
       });
   }
 

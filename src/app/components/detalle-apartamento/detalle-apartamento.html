@@ -1,0 +1,109 @@
+<div *ngIf="casa">
+
+  <section class="hero-static"
+    [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), url(https://alojamientossanlucar.es/api/uploads/' + casa.imagen_principal + ')'}">
+    <div class="hero-overlay">
+      <div class="hero-text-container">
+        <h1>{{ casa.nombre }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="detalle-container">
+
+    <div class="carrusel-detalle" *ngIf="fotosGaleria.length > 0">
+      <button class="btn-flecha prev" (click)="fotoAnterior()" *ngIf="fotosGaleria.length > 1">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div class="slide" *ngFor="let foto of fotosGaleria; let i = index" [class.activo]="i === fotoActualIndex">
+        <img [src]="'https://alojamientossanlucar.es/api/uploads/' + foto" [alt]="casa.nombre">
+      </div>
+
+      <button class="btn-flecha next" (click)="fotoSiguiente()" *ngIf="fotosGaleria.length > 1">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+      <div class="indicadores" *ngIf="fotosGaleria.length > 1">
+        <span class="punto" *ngFor="let foto of fotosGaleria; let i = index" [class.activo]="i === fotoActualIndex"
+          (click)="fotoActualIndex = i">
+        </span>
+      </div>
+    </div>
+
+    <div class="seccion-info">
+      <aside class="caja-datos">
+        <h3>Datos de Interes</h3>
+        <ul class="lista-datos">
+          <li>
+            <i class="fas fa-users"></i>
+            <div class="dato-texto">
+              <strong>Capacidad:</strong>
+              <span>Hasta {{ casa.capacidad }} personas</span>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="dato-texto">
+              <strong>Ubicación:</strong>
+              <span>{{ casa.ubicacion }}</span>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-tag"></i>
+            <div class="dato-texto">
+              <strong>Precio noche:</strong>
+              <span>{{ casa.precio_noche }} €</span>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <div class="texto-descriptivo">
+        <h2>Bienvenido a {{ casa.nombre }}</h2>
+
+        <div class="descripcion-contenido">
+          <p class="intro">
+            En <strong>Alquileres Casa Currito</strong>, nuestro objetivo es que te sientas como en casa desde el primer
+            segundo.
+            <strong>{{ casa.nombre }}</strong> ha sido preparada con todo el cariño y detalle para que tu estancia en
+            Sanlúcar de Barrameda sea inolvidable.
+            Disfruta de la comodidad, la ubicación privilegiada y el encanto de nuestra tierra.
+          </p>
+
+          <div class="seccion-detalle">
+            <h3>Información de tu Estancia</h3>
+            <ul class="lista-check">
+              <li><i class="fas fa-clock"></i> <strong>Entrada (Check-in):</strong> A partir de las 15:00h.</li>
+              <li><i class="fas fa-sign-out-alt"></i> <strong>Salida (Check-out):</strong> Hasta las 11:00h.</li>
+              <li><i class="fas fa-key"></i> <strong>Recogida de llaves:</strong> Nos pondremos en contacto contigo 24h
+                antes para coordinar tu llegada.</li>
+            </ul>
+          </div>
+
+          <div class="seccion-detalle">
+            <h3>Normas y Convivencia</h3>
+            <p>Para garantizar el descanso de todos los huéspedes y vecinos, te pedimos respetar las siguientes normas:
+            </p>
+            <ul class="lista-check">
+              <li><i class="fas fa-volume-mute"></i> Respetar las horas de descanso (23:00h a 09:00h).</li>
+              <li><i class="fas fa-smoking-ban"></i> Prohibido fumar en el interior del alojamiento.</li>
+              <li><i class="fas fa-paw"></i> Consultar disponibilidad para mascotas antes de la reserva.</li>
+              <li><i class="fas fa-users-slash"></i> No se permiten fiestas ni eventos.</li>
+            </ul>
+          </div>
+
+          <p>
+            ¡Esperamos verte pronto en <strong>{{ casa.nombre }}</strong>!
+          </p>
+
+          <a class="link-currito" routerLink="/sanlucar">
+            Descubre qué hacer en Sanlúcar <span>→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

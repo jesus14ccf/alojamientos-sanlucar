@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Propiedades, Propiedad, Foto } from '../../services/propiedades';
 
 @Component({
   selector: 'app-detalle-apartamento',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './detalle-apartamento.html',
   styleUrl: './detalle-apartamento.scss',
 })
 export class DetalleApartamento implements OnInit {
   casa!: Propiedad;
   fotosGaleria: string[] = [];
+
+  fotoActualIndex: number = 0;
 
   constructor(
     private propiedadService: Propiedades,
@@ -40,7 +42,8 @@ export class DetalleApartamento implements OnInit {
     this.propiedadService.getFotosPropiedad(id).subscribe({
       next: (fotos: Foto[]) => {
         this.fotosGaleria = [
-          this.casa.imagen_principal, ...fotos.map((f) => f.ruta_foto),
+          this.casa.imagen_principal,
+          ...fotos.map((f) => f.ruta_foto),
         ];
       },
       error: (err) => {
@@ -48,5 +51,21 @@ export class DetalleApartamento implements OnInit {
         this.fotosGaleria = [this.casa.imagen_principal];
       },
     });
+  }
+
+  fotoAnterior() {
+    if (this.fotoActualIndex > 0) {
+      this.fotoActualIndex--;
+    } else {
+      this.fotoActualIndex = this.fotosGaleria.length - 1;
+    }
+  }
+
+  fotoSiguiente() {
+    if (this.fotoActualIndex < this.fotosGaleria.length - 1) {
+      this.fotoActualIndex++;
+    } else {
+      this.fotoActualIndex = 0;
+    }
   }
 }
