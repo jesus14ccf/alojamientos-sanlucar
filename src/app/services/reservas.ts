@@ -8,6 +8,8 @@ export interface Reserva {
   nombre_propiedad: string;
   nombre_cliente: string;
   email_cliente: string;
+  telefono_cliente: string;
+  huespedes: number;
   fecha_entrada: Date;
   fecha_salida: Date;
   estado: string;
@@ -31,5 +33,9 @@ private URL_API = 'https://alojamientossanlucar.es/api/reservas.php';
 
   enviarPeticion(reserva: any): Observable<any> {
     return this.http.post(this.URL_API, reserva);
+  }
+
+  borrarReserva(id_reserva: number): Observable<any> {
+    return this.http.delete(`${this.URL_API}?id=${id_reserva}`);
   }
 }

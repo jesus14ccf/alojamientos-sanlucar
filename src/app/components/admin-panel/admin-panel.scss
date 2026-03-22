@@ -17,13 +17,23 @@ $rojo: #dc3545;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      .full-width { grid-column: span 2; }
+
+      .full-width {
+        grid-column: span 2;
+      }
     }
+
     .form-group {
       display: flex;
       flex-direction: column;
-      label { font-weight: 700; margin-bottom: 8px; }
-      input, textarea {
+
+      label {
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      input,
+      textarea {
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -48,6 +58,7 @@ $rojo: #dc3545;
     .logo-wrapper {
       text-align: center;
       margin-bottom: 60px;
+
       .admin-logo {
         width: 140px;
         filter: brightness(0) invert(1);
@@ -56,6 +67,7 @@ $rojo: #dc3545;
 
     .admin-nav {
       flex: 1;
+
       .nav-item {
         color: white;
         padding: 15px;
@@ -65,7 +77,10 @@ $rojo: #dc3545;
         border-radius: 8px;
         margin-bottom: 10px;
         cursor: pointer;
-        &.active { background: rgba(255,255,255,0.15); }
+
+        &.active {
+          background: rgba(255, 255, 255, 0.15);
+        }
       }
     }
 
@@ -98,14 +113,18 @@ $rojo: #dc3545;
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 40px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 25px;
-      h2 { color: $negro-puro; font-weight: 800; }
+
+      h2 {
+        color: $negro-puro;
+        font-weight: 800;
+      }
     }
   }
 
@@ -126,13 +145,37 @@ $rojo: #dc3545;
       }
 
       td {
-        padding: 15px;
+        padding: 18px 15px;
         color: $negro-puro;
         border-bottom: 1px solid #eee;
         vertical-align: middle;
       }
 
-      .text-bold { font-weight: 700; }
+      .main-text {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: $negro-puro;
+      }
+
+      .sub-text {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 4px;
+
+        i {
+          color: #adb5bd;
+          width: 16px;
+          text-align: center;
+        }
+      }
+
+      .text-bold {
+        font-weight: 700;
+      }
 
 
       .thumb {
@@ -145,7 +188,15 @@ $rojo: #dc3545;
     }
   }
 
-  .btn-add { background: $verde; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .btn-add {
+    background: $verde;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
   .btn-del {
     background: none;
@@ -155,7 +206,11 @@ $rojo: #dc3545;
     border-radius: 6px;
     font-weight: 700;
     cursor: pointer;
-    &:hover { background: $rojo; color: white; }
+
+    &:hover {
+      background: $rojo;
+      color: white;
+    }
   }
 
   .btn-approve {
@@ -184,9 +239,27 @@ $rojo: #dc3545;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 900;
-    &.pendiente { background: #fff3cd; color: #856404; }
-    &.aceptada { background: #d4edda; color: #155724; }
-    &.rechazada { background: #f8d7da; color: #721c24; }
+
+    &.pendiente {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    &.aceptada {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    &.rechazada {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    &.cancelada {
+      background: #e2e3e5;
+      color: #383d41;
+      text-decoration: line-through;
+    }
   }
 }
 
@@ -215,9 +288,20 @@ $rojo: #dc3545;
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .admin-table {
+    min-width: 700px;
   }
 }
 
@@ -232,16 +316,26 @@ $rojo: #dc3545;
       padding: 20px;
       position: relative;
 
-      .logo-wrapper { margin-bottom: 20px; }
+      .logo-wrapper {
+        margin-bottom: 20px;
+      }
 
       .admin-nav {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        .nav-item { flex: 1; text-align: center; margin-bottom: 0; padding: 10px; }
+
+        .nav-item {
+          flex: 1;
+          text-align: center;
+          margin-bottom: 0;
+          padding: 10px;
+        }
       }
 
-      .sidebar-footer { margin-top: 15px; }
+      .sidebar-footer {
+        margin-top: 15px;
+      }
     }
 
     .main-content {
@@ -251,15 +345,10 @@ $rojo: #dc3545;
 
     .admin-form .form-grid {
       grid-template-columns: 1fr;
-      .full-width { grid-column: span 1; }
+
+      .full-width {
+        grid-column: span 1;
+      }
     }
   }
-}
-
-
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  .admin-table { min-width: 700px; }
 }

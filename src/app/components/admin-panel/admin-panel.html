@@ -76,32 +76,85 @@
     </ng-container>
 
     <section class="admin-card" *ngIf="mostrarFormulario">
+
       <div class="card-header">
         <h2>Añadir Nuevo Alojamiento</h2>
         <button class="btn-del" (click)="mostrarFormulario = false">Cancelar</button>
       </div>
+
       <form (ngSubmit)="crearPropiedad()" class="admin-form">
+
         <div class="form-grid">
+
           <div class="form-group">
             <label>Nombre</label>
             <input type="text" [(ngModel)]="nuevaPropiedad.nombre" name="nombre" required>
           </div>
+
           <div class="form-group">
             <label>Ubicación</label>
             <input type="text" [(ngModel)]="nuevaPropiedad.ubicacion" name="ubicacion" required>
           </div>
+
           <div class="form-group">
             <label>Precio por Noche</label>
             <input type="number" [(ngModel)]="nuevaPropiedad.precio_noche" name="precio" required>
           </div>
+
           <div class="form-group">
             <label>Capacidad (personas)</label>
             <input type="number" [(ngModel)]="nuevaPropiedad.capacidad" name="capacidad" required>
           </div>
+
+          <div class="form-group">
+            <label>Nº de Habitaciones</label>
+            <input type="number" [(ngModel)]="nuevaPropiedad.habitaciones" name="habitaciones" min="1" required>
+          </div>
+
+          <div class="form-group">
+            <label>Nº de Baños</label>
+            <input type="number" [(ngModel)]="nuevaPropiedad.banos" name="banos" min="1" required>
+          </div>
+
+          <div class="form-group full-width"
+            style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
+            <label style="margin-bottom: 10px; display: block; color: #1a5f7a; font-size: 1.1rem;">Extras y
+              Comodidades</label>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+              <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                <input type="checkbox" [checked]="nuevaPropiedad.piscina == 1"
+                  (change)="nuevaPropiedad.piscina = $event.target.checked ? 1 : 0" style="width: 20px; height: 20px;">
+                <i class="fas fa-swimmer" style="color: #666;"></i> Piscina
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                <input type="checkbox" [checked]="nuevaPropiedad.wifi == 1"
+                  (change)="nuevaPropiedad.wifi = $event.target.checked ? 1 : 0" style="width: 20px; height: 20px;">
+                <i class="fas fa-wifi" style="color: #666;"></i> Wi-Fi
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                <input type="checkbox" [checked]="nuevaPropiedad.garaje == 1"
+                  (change)="nuevaPropiedad.garaje = $event.target.checked ? 1 : 0" style="width: 20px; height: 20px;">
+                <i class="fas fa-car" style="color: #666;"></i> Garaje
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                <input type="checkbox" [checked]="nuevaPropiedad.padel == 1"
+                  (change)="nuevaPropiedad.padel = $event.target.checked ? 1 : 0" style="width: 20px; height: 20px;">
+                <i class="fas fa-table-tennis" style="color: #666;"></i> Pista de Pádel
+              </label>
+
+            </div>
+          </div>
+
           <div class="form-group full-width">
             <label>Nombre de la Imagen (ej: casa1.jpg)</label>
             <input type="text" [(ngModel)]="nuevaPropiedad.imagen_principal" name="imagen" required>
           </div>
+
           <div class="form-group full-width">
 
             <label>Fotos de la Galería (Selecciona varias a la vez)</label>
@@ -111,13 +164,18 @@
               fotos.</small>
 
           </div>
+
           <div class="form-group full-width">
             <label>Descripción</label>
             <textarea [(ngModel)]="nuevaPropiedad.descripcion" name="descripcion" rows="4"></textarea>
           </div>
+
         </div>
+
         <button type="submit" class="btn-add" style="width: 100%; margin-top: 20px;">GUARDAR PROPIEDAD</button>
+
       </form>
+
     </section>
 
     <section class="admin-card" *ngIf="seccionActual === 'reservas'">
@@ -135,20 +193,52 @@
               <th>Acciones</th>
             </tr>
           </thead>
+
           <tbody>
             <tr *ngFor="let res of listaReservas">
-              <td><strong>{{ res.nombre_cliente }}</strong><br><small>{{ res.email_cliente }}</small></td>
+              <td>
+                <span class="main-text">{{ res.nombre_cliente }}</span>
+                <span class="sub-text"><i class="fas fa-envelope"></i>{{ res.email_cliente }}</span>
+                <span class="sub-text"><i class="fas fa-phone-alt"></i> {{ res.telefono_cliente }}</span>
+              </td>
+
               <td class="text-bold">{{ res.nombre_propiedad }}</td>
-              <td class="text-bold">{{ res.fecha_entrada }} / {{ res.fecha_salida }}</td>
-              <td><span class="status-pill" [ngClass]="res.estado.toLowerCase()">{{ res.estado }}</span></td>
+
+              <td>
+                <span class="main-text">{{ res.fecha_entrada }} / {{ res.fecha_salida }}</span>
+                <span class="sub-text"><i class="fas fa-users-friends"></i> {{ res.huespedes }} personas</span>
+              </td>
+
+              <td>
+                <span class="status-pill" [ngClass]="res.estado.toLowerCase()">{{ res.estado }}</span>
+              </td>
+
               <td class="actions-cell">
                 <ng-container *ngIf="res.estado === 'Pendiente'">
                   <button class="btn-approve" (click)="actualizarEstado(res.id_reserva, 'Aceptada')">Aceptar</button>
                   <button class="btn-reject" (click)="actualizarEstado(res.id_reserva, 'Rechazada')">Rechazar</button>
                 </ng-container>
+
+                <ng-container *ngIf="res.estado === 'Aceptada'">
+                  <button class="btn-reject" (click)="actualizarEstado(res.id_reserva, 'Cancelada')"
+                    title="Cancelar y liberar fechas">
+                    <i class="fas fa-ban"></i> Cancelar
+                  </button>
+                </ng-container>
+
+                <div style="margin-top: 8px;">
+                  <button class="btn-del" style="width: 100%; padding: 6px; font-size: 0.85rem;"
+                    (click)="borrarReserva(res.id_reserva)">
+                    <i class="fas fa-trash"></i> Borrar
+                  </button>
+                </div>
               </td>
+
+
             </tr>
           </tbody>
+
+
         </table>
       </div>
     </section>

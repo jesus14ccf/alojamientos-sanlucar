@@ -9,6 +9,12 @@ export interface Propiedad {
   ubicacion: string;
   precio_noche: number;
   imagen_principal: string;
+  habitaciones?: number;
+  banos?: number;
+  piscina?: number;
+  wifi?: number;
+  garaje?: number;
+  padel?: number;
   id_usuario: number;
   capacidad: number;
   visible?: number;
@@ -30,6 +36,7 @@ export class Propiedades {
   private URL_FOTOS = 'https://alojamientossanlucar.es/api/fotos.php';
   private URL_BORRAR_FOTO = 'https://alojamientossanlucar.es/api/borrar_foto.php';
   private URL_BUSCAR = 'https://alojamientossanlucar.es/api/get_propiedades.php';
+  private URL_RESERVA = 'https://alojamientossanlucar.es/api/reservas.php';
 
   constructor(private http: HttpClient) {}
 
@@ -86,4 +93,9 @@ export class Propiedades {
     };
     return this.http.put(this.URL_API, payload);
   }
+
+  crearReserva(reservaData: any): Observable<any> {
+    return this.http.post(this.URL_RESERVA, reservaData);
+  }
+
 }

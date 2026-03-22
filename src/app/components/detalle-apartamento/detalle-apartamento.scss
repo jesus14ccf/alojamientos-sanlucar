@@ -102,7 +102,7 @@ $grey-light: #f4f6f8;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #333;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -215,23 +215,23 @@ $grey-light: #f4f6f8;
 
 .texto-descriptivo {
   h2 {
-    font-size: 2.9rem;
-    margin-bottom: 25px;
+    font-size: 2.6rem;
+    margin-bottom: 20px;
     color: $navy-currito;
   }
 
   .intro {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     line-height: 1.8;
     color: $navy-currito;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
   .seccion-detalle {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 
     h3 {
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 15px;
       color: $navy-currito;
@@ -248,9 +248,9 @@ $grey-light: #f4f6f8;
     }
 
     p {
-      line-height: 1.7;
+      line-height: 1.1;
       color: $navy-currito;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
   }
 
@@ -260,7 +260,7 @@ $grey-light: #f4f6f8;
 
     li {
       margin-bottom: 12px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       display: flex;
       gap: 12px;
       line-height: 1.6;
@@ -268,32 +268,30 @@ $grey-light: #f4f6f8;
 
       i {
         color: $navy-currito;
-        margin-top: 4px;
-        font-size: 1.2rem;
+        margin-top: 2px;
+        font-size: 1.1rem;
       }
     }
   }
 }
 
 .despedida {
-  font-size: 1.3rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.2;
   color: $navy-currito;
-  margin-top: 30px;
-  margin-bottom: 25px;
 }
 
 p {
   line-height: 1.7;
   color: $navy-currito;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .link-currito {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: $navy-currito;
   text-transform: uppercase;
@@ -319,6 +317,461 @@ p {
   }
 }
 
+.galeria-abstracta {
+  max-width: 1300px;
+  margin: 70px auto 100px auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 250px;
+  gap: 25px;
+  grid-auto-flow: dense;
+
+  .foto-grid {
+    width: 100%;
+    height: 100%;
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .foto-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .foto-grid:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+
+    .foto-item {
+      height: 100%;
+    }
+  }
+}
+
+.contenedor-btn-galeria {
+  display: flex;
+  justify-content: center;
+  margin-top: -60px;
+  margin-bottom: 80px;
+
+  .btn-ver-mas {
+    background-color: transparent;
+    border: 2px solid $navy-currito;
+    color: $navy-currito;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &:hover {
+      background-color: $navy-currito;
+      color: white;
+    }
+  }
+}
+
+.modal-galeria-pantalla-completa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .btn-cerrar-modal {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10000;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .btn-flecha-modal {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    &.prev {
+      left: 40px;
+    }
+
+    &.next {
+      right: 40px;
+    }
+  }
+
+  .imagen-modal-container {
+    width: 80%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+  }
+
+  .contador-modal {
+    position: absolute;
+    bottom: 30px;
+    color: white;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+}
+
+/* =========================================
+   SECCIÓN DE RESERVAS Y CALENDARIO
+========================================= */
+.seccion-reserva {
+  max-width: 1300px;
+  margin: 0 auto 100px auto;
+  padding: 60px 40px;
+  background-color: #f8f9fa;
+  border-radius: 30px;
+
+  .reserva-header {
+    text-align: center;
+    margin-bottom: 50px;
+
+    h2 {
+      font-size: 2.8rem;
+      color: $navy-currito;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+  }
+
+  .reserva-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+}
+
+.calendario-container {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  .mes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+    h3 {
+      font-size: 1.5rem;
+      color: $navy-currito;
+      text-transform: capitalize;
+    }
+
+    .btn-mes {
+      background: #f0f0f0;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: $navy-currito;
+      transition: all 0.2s;
+
+      &:hover {
+        background: $navy-currito;
+        color: white;
+      }
+    }
+  }
+
+  .dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 15px;
+  }
+
+  .dias-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+
+    .dia {
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover:not(.vacio):not(.ocupado) {
+        background-color: rgba($navy-currito, 0.1);
+      }
+
+      &.vacio {
+        cursor: default;
+      }
+
+      &.ocupado {
+        background-color: #ffeaea;
+        color: #ff4d4d;
+        text-decoration: line-through;
+        cursor: not-allowed;
+      }
+
+      &.seleccionado-inicio,
+      &.seleccionado-fin {
+        background-color: $navy-currito;
+        color: white;
+      }
+
+      &.seleccionado-rango {
+        background-color: rgba($navy-currito, 0.2);
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.formulario-container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  .fechas-seleccionadas {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+
+    .fecha-box {
+      flex: 1;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid $navy-currito;
+
+      span {
+        display: block;
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      strong {
+        display: block;
+        font-size: 1.1rem;
+        color: $navy-currito;
+      }
+    }
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: $navy-currito;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: $navy-currito;
+      }
+    }
+  }
+
+  .input-group-doble {
+    display: flex;
+    gap: 20px;
+
+    .input-group {
+      flex: 1;
+    }
+  }
+
+  .btn-enviar-reserva {
+    width: 100%;
+    padding: 18px;
+    background-color: $navy-currito;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+
+    &:hover {
+      background-color: lighten($navy-currito, 10%);
+    }
+  }
+
+  .nota-formulario {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    line-height: 1.5;
+  }
+}
+
+.modal-exito-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeInExito 0.3s ease;
+
+  .modal-exito-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUpExito 0.4s ease-out;
+
+    .icono-exito {
+      font-size: 5rem;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: $navy-currito;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-cerrar-exito {
+      background-color: $navy-currito;
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: lighten($navy-currito, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@keyframes fadeInExito {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpExito {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 @media (max-width: 768px) {
@@ -377,4 +830,78 @@ p {
   .caja-datos {
     order: 2;
   }
+
+  .galeria-abstracta {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 300px;
+    gap: 15px;
+    padding: 0 20px;
+
+    .foto-grid:nth-child(1) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  .modal-galeria-pantalla-completa {
+    .btn-flecha-modal {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+
+      &.prev {
+        left: 10px;
+      }
+
+      &.next {
+        right: 10px;
+      }
+    }
+
+    .btn-cerrar-modal {
+      top: 15px;
+      right: 15px;
+    }
+
+    .imagen-modal-container {
+      width: 95%;
+    }
+  }
+
+  .seccion-reserva .reserva-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px;
+  }
+
+  .seccion-reserva {
+    padding: 30px 20px;
+    margin-bottom: 50px;
+  }
+
+  .seccion-reserva .reserva-header h2 {
+    font-size: 2.2rem;
+  }
+
+  .formulario-container .fechas-seleccionadas {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .formulario-container .input-group-doble {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .calendario-container {
+    padding: 20px;
+
+    .mes-header h3 {
+      font-size: 1.2rem;
+    }
+
+    .dias-grid .dia {
+      font-size: 0.9rem;
+    }
+  }
+
 }

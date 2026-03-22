@@ -32,6 +32,7 @@
     </div>
 
     <div class="seccion-info">
+
       <aside class="caja-datos">
         <h3>Datos de Interes</h3>
         <ul class="lista-datos">
@@ -42,6 +43,7 @@
               <span>Hasta {{ casa.capacidad }} personas</span>
             </div>
           </li>
+
           <li>
             <i class="fas fa-map-marker-alt"></i>
             <div class="dato-texto">
@@ -49,13 +51,63 @@
               <span>{{ casa.ubicacion }}</span>
             </div>
           </li>
-          <li>
+
+          <li *ngIf="casa.habitaciones">
+            <i class="fas fa-bed"></i>
+            <div class="dato-texto">
+              <strong>Habitaciones:</strong>
+              <span>{{ casa.habitaciones }}</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.banos">
+            <i class="fas fa-bath"></i>
+            <div class="dato-texto">
+              <strong>Baños:</strong>
+              <span>{{ casa.banos }}</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.piscina == 1">
+            <i class="fas fa-swimmer"></i>
+            <div class="dato-texto">
+              <strong>Piscina:</strong>
+              <span>Disponible</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.wifi == 1">
+            <i class="fas fa-wifi"></i>
+            <div class="dato-texto">
+              <strong>Conexión:</strong>
+              <span>Wi-Fi gratis</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.garaje == 1">
+            <i class="fas fa-car"></i>
+            <div class="dato-texto">
+              <strong>Aparcamiento:</strong>
+              <span>Garaje incluido</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.padel == 1">
+            <i class="fas fa-table-tennis"></i>
+            <div class="dato-texto">
+              <strong>Pádel:</strong>
+              <span>Pista disponible</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.precio_noche">
             <i class="fas fa-tag"></i>
             <div class="dato-texto">
               <strong>Precio noche:</strong>
               <span>{{ casa.precio_noche }} €</span>
             </div>
           </li>
+
         </ul>
       </aside>
 
@@ -102,7 +154,163 @@
           </a>
         </div>
       </div>
+    </div>
 
+    <div class="galeria-abstracta" *ngIf="fotosAbstractas.length > 0">
+
+      <div class="foto-grid" *ngFor="let foto of fotosAbstractas; let i = index" (click)="abrirModal(i + 5)"
+        style="cursor: pointer;">
+
+        <div class="foto-item" [ngClass]="{'foto-destacada': i === 0}">
+          <img [src]="'https://alojamientossanlucar.es/api/uploads/' + foto" alt="Galería de la casa">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="contenedor-btn-galeria" *ngIf="todasLasFotos.length > 11">
+      <button class="btn-ver-mas" (click)="abrirModal(0)">
+        <i class="fas fa-th"></i> Ver galería completa
+      </button>
+    </div>
+
+    <div class="modal-galeria-pantalla-completa" *ngIf="mostrarModal">
+
+      <button class="btn-cerrar-modal" (click)="cerrarModal()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <button class="btn-flecha-modal prev" (click)="modalAnterior()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div class="imagen-modal-container">
+        <img [src]="'https://alojamientossanlucar.es/api/uploads/' + todasLasFotos[fotoModalIndex]" alt="Foto ampliada">
+      </div>
+
+      <button class="btn-flecha-modal next" (click)="modalSiguiente()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+      <div class="contador-modal">
+        {{ fotoModalIndex + 1 }} / {{ todasLasFotos.length }}
+      </div>
+
+    </div>
+
+    <div class="seccion-reserva" id="zona-reserva">
+
+      <div class="reserva-header">
+        <h2>Reserva tu estancia</h2>
+        <p>Selecciona tus fechas de entrada y salida en el calendario y completa tu solicitud.</p>
+      </div>
+
+      <div class="reserva-grid">
+
+        <div class="calendario-container">
+          <div class="mes-header">
+            <button class="btn-mes" (click)="cambiarMes(-1)" type="button">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <h3>{{ obtenerNombreMes() }}</h3>
+
+            <button class="btn-mes" (click)="cambiarMes(1)" type="button">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="dias-semana">
+            <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+          </div>
+
+          <div class="dias-grid">
+            <div class="dia" *ngFor="let dia of diasCalendario" (click)="seleccionarFecha(dia)" [ngClass]="{
+               'vacio': dia.vacio,
+               'ocupado': dia.ocupado,
+               'seleccionado-inicio': !dia.vacio && esFechaEntrada(dia.fechaCompleta),
+               'seleccionado-fin': !dia.vacio && esFechaSalida(dia.fechaCompleta),
+               'seleccionado-rango': !dia.vacio && estaEnRango(dia.fechaCompleta)
+             }">
+              {{ dia.vacio ? '' : dia.numero }}
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="formulario-container">
+
+          <form class="formulario-reserva" (ngSubmit)="enviarReserva()" #reservaForm="ngForm">
+
+            <div class="fechas-seleccionadas">
+              <div class="fecha-box">
+                <span>Entrada (Check-in)</span>
+                <strong>{{ fechaEntrada ? (fechaEntrada | date:'dd/MM/yyyy') : 'Selecciona fecha' }}</strong>
+              </div>
+              <div class="fecha-box">
+                <span>Salida (Check-out)</span>
+                <strong>{{ fechaSalida ? (fechaSalida | date:'dd/MM/yyyy') : 'Selecciona fecha' }}</strong>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Nombre completo</label>
+              <input type="text" name="nombre" [(ngModel)]="datosCliente.nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="input-group">
+              <label>Correo electrónico</label>
+              <input type="email" name="email" [(ngModel)]="datosCliente.email" placeholder="Ej: hola@tucorreo.com"
+                required>
+            </div>
+
+            <div class="input-group-doble">
+              <div class="input-group">
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" [(ngModel)]="datosCliente.telefono" placeholder="+34..." required>
+              </div>
+              <div class="input-group">
+                <label>Huéspedes</label>
+                <input type="number" name="huespedes" [(ngModel)]="datosCliente.huespedes" min="1"
+                  [max]="casa.capacidad" placeholder="Máx {{casa.capacidad}}" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-enviar-reserva"
+              [disabled]="!reservaForm.valid || !fechaEntrada || !fechaSalida">
+              <i class="far fa-paper-plane"></i> Enviar Solicitud
+            </button>
+
+            <p class="nota-formulario">
+              <i class="fas fa-info-circle"></i> Esto es una solicitud de reserva. Nos pondremos en contacto contigo
+              para confirmar el pago y la disponibilidad exacta.
+            </p>
+
+          </form>
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-exito-overlay" *ngIf="mostrarModalExito">
+      <div class="modal-exito-content">
+
+        <div class="icono-exito">
+          <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h3>¡Solicitud enviada!</h3>
+        <p>Hemos recibido tus datos correctamente. Pronto nos pondremos en contacto contigo para confirmar la
+          disponibilidad exacta.</p>
+
+        <button class="btn-cerrar-exito" (click)="cerrarModalExito()">
+          Entendido
+        </button>
+
+      </div>
     </div>
 
   </div>

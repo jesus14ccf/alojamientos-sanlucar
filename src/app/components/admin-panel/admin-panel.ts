@@ -31,6 +31,12 @@ export class AdminPanel implements OnInit {
     precio_noche: 0,
     imagen_principal: '',
     capacidad: 1,
+    habitaciones: 1,
+    banos: 1,
+    piscina: 0,
+    wifi: 0,
+    garaje: 0,
+    padel: 0,
     id_usuario: 1,
   };
 
@@ -108,6 +114,12 @@ export class AdminPanel implements OnInit {
       precio_noche: 0,
       imagen_principal: '',
       capacidad: 1,
+      habitaciones: 1,
+      banos: 1,
+      piscina: 0,
+      wifi: 0,
+      garaje: 0,
+      padel: 0,
       id_usuario: 1,
     };
   }
@@ -125,9 +137,31 @@ export class AdminPanel implements OnInit {
   }
 
   actualizarEstado(idReserva: number, nuevoEstado: string): void {
+    console.log(
+      `Enviando estado '${nuevoEstado}' para la reserva ID: ${idReserva}`,
+    );
+
     this.reservaService.cambiarEstado(idReserva, nuevoEstado).subscribe({
-      next: () => this.cargarDatos(),
-      error: (err) => alert('Error al actualizar la reserva'),
+      next: (respuesta: any) => {
+        console.log('Respuesta del servidor:', respuesta);
+
+        if (respuesta.status === 'success') {
+          const index = this.listaReservas.findIndex(
+            (r) => r.id_reserva === idReserva,
+          );
+          if (index !== -1) {
+            this.listaReservas[index].estado = nuevoEstado;
+          }
+        } else {
+          alert('Error del servidor: ' + respuesta.message);
+        }
+      },
+      error: (err) => {
+        console.error('Error HTTP fatal:', err);
+        alert(
+          'Fallo al conectar con el servidor para actualizar. Mira la consola.',
+        );
+      },
     });
   }
 
@@ -161,23 +195,22 @@ export class AdminPanel implements OnInit {
     this.fotosExtraNuevas = [];
   }
 
-
   cargarFotosDeLaCasa(idPropiedad: number) {
     this.propiedadService.getFotosPropiedad(idPropiedad).subscribe({
       next: (fotos) => {
         this.fotosActuales = fotos;
       },
-      error: (err) => console.error('Error al cargar fotos', err)
+      error: (err) => console.error('Error al cargar fotos', err),
     });
   }
 
   eliminarFoto(idFoto: number) {
-    if(confirm('¿Seguro que quieres borrar esta foto de forma permanente?')) {
+    if (confirm('¿Seguro que quieres borrar esta foto de forma permanente?')) {
       this.propiedadService.deleteFoto(idFoto).subscribe({
         next: () => {
           this.cargarFotosDeLaCasa(this.casaSeleccionadaParaFotos.id_propiedad);
         },
-        error: (err) => alert('Error al borrar la foto')
+        error: (err) => alert('Error al borrar la foto'),
       });
     }
   }
@@ -191,13 +224,41 @@ export class AdminPanel implements OnInit {
   subirFotosNuevas() {
     if (this.fotosExtraNuevas.length === 0) return;
 
-    this.propiedadService.uploadFotos(this.casaSeleccionadaParaFotos.id_propiedad, this.fotosExtraNuevas).subscribe({
-      next: () => {
-        alert('Fotos añadidas a la galería');
-        this.fotosExtraNuevas = [];
-        this.cargarFotosDeLaCasa(this.casaSeleccionadaParaFotos.id_propiedad);
-      },
-      error: (err) => alert('Error al subir las nuevas fotos')
-    });
+    this.propiedadService
+      .uploadFotos(
+        this.casaSeleccionadaParaFotos.id_propiedad,
+        this.fotosExtraNuevas,
+      )
+      .subscribe({
+        next: () => {
+          alert('Fotos añadidas a la galería');
+          this.fotosExtraNuevas = [];
+          this.cargarFotosDeLaCasa(this.casaSeleccionadaParaFotos.id_propiedad);
+        },
+        error: (err) => alert('Error al subir las nuevas fotos'),
+      });
+  }
+
+  borrarReserva(idReserva: number): void {
+    if (
+      confirm(
+        '¿Estás seguro de que quieres borrar esta reserva definitivamente?',
+      )
+    ) {
+      this.reservaService.borrarReserva(idReserva).subscribe({
+        next: (res: any) => {
+          if (res.status === 'success') {
+            alert('Reserva borrada del historial');
+            this.cargarDatos();
+          } else {
+            alert('Error al borrar: ' + res.message);
+          }
+        },
+        error: (err) => {
+          console.error('Error al borrar reserva', err);
+          alert('Error de conexión al intentar borrar.');
+        },
+      });
+    }
   }
 }
