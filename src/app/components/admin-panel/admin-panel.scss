@@ -42,6 +42,54 @@ $rojo: #dc3545;
     }
   }
 
+  .filter-bar {
+    display: flex;
+    gap: 15px;
+    margin: 0 0 25px 0;
+    align-items: flex-end;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    flex-wrap: wrap;
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 200px;
+
+      label {
+        font-size: 0.9rem;
+        color: $azul-corporativo;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      input[type="date"] {
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        width: 100%;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: $azul-corporativo;
+        }
+      }
+    }
+
+    .btn-del {
+      padding: 8px 15px;
+      margin-bottom: 0px;
+      height: 38px;
+      white-space: nowrap;
+    }
+  }
+
+
 
   .sidebar {
     width: 280px;
@@ -130,9 +178,12 @@ $rojo: #dc3545;
 
   .table-responsive {
     overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
 
     .admin-table {
       width: 100%;
+      min-width: 700px;
       border-collapse: collapse;
 
       th {
@@ -275,12 +326,13 @@ $rojo: #dc3545;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+
+  .modal-content {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: modalAparecer 0.3s ease-out;
+  }
 }
 
-.modal-overlay .modal-content {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: modalAparecer 0.3s ease-out;
-}
 
 
 @keyframes modalAparecer {
@@ -292,16 +344,6 @@ $rojo: #dc3545;
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  .admin-table {
-    min-width: 700px;
   }
 }
 
@@ -349,6 +391,18 @@ $rojo: #dc3545;
       .full-width {
         grid-column: span 1;
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-layout .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+
+    .btn-del {
+      margin-top: 10px;
+      width: 100%;
     }
   }
 }

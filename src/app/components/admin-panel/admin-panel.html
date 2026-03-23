@@ -182,6 +182,25 @@
       <div class="card-header">
         <h2>Gestión de Reservas</h2>
       </div>
+
+      <div class="filter-bar">
+
+        <div class="filter-group">
+          <label>Fecha de entrada (Desde):</label>
+          <input type="date" [(ngModel)]="fechaFiltroInicio" (change)="filtrarReservas()">
+        </div>
+
+        <div class="filter-group">
+          <label>Fecha de entrada (Hasta):</label>
+          <input type="date" [(ngModel)]="fechaFiltroFin" (change)="filtrarReservas()">
+        </div>
+
+        <button class="btn-del" (click)="limpiarFiltro()" *ngIf="fechaFiltroInicio || fechaFiltroFin">
+          <i class="fas fa-times"></i> Limpiar
+        </button>
+
+      </div>
+
       <div class="table-responsive">
         <table class="admin-table">
           <thead>
@@ -195,7 +214,7 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let res of listaReservas">
+            <tr *ngFor="let res of reservasFiltradas">
               <td>
                 <span class="main-text">{{ res.nombre_cliente }}</span>
                 <span class="sub-text"><i class="fas fa-envelope"></i>{{ res.email_cliente }}</span>
@@ -242,6 +261,7 @@
         </table>
       </div>
     </section>
+
   </main>
   <div class="modal-overlay" *ngIf="mostrarGestorFotos">
     <div class="modal-content"

@@ -1,0 +1,298 @@
+@use "sass:color";
+
+$navy-currito: #1e3a5f;
+$grey-texto: #444444;
+$grey-light: #f4f6f8;
+
+.hero-slideshow-section {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: heroSlideshow 20s infinite linear;
+
+      &.slide-1 {
+        background-image: url('/img/plazaCabildo.jpg');
+        animation-delay: 0s;
+      }
+
+      &.slide-2 {
+        background-image: url('/img/puestaSol.jpg');
+        animation-delay: 5s;
+      }
+
+      &.slide-3 {
+        background-image: url('/img/tortillasCamarones.jpg');
+        animation-delay: 10s;
+      }
+
+      &.slide-4 {
+        background-image: url('/img/carrerasCaballos.jpg');
+        animation-delay: 15s;
+      }
+    }
+  }
+
+  .contenido-hero {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    width: 100%;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+        margin-top: 20px;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@keyframes heroSlideshow {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.seccion-bienvenida {
+  background-color: #ffffff;
+  padding: 80px 20px 60px 20px;
+  text-align: center;
+}
+
+.contenedor-centrado {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.seccion-bienvenida h2 {
+  color: $navy-currito;
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.linea-decorativa {
+  width: 80px;
+  height: 3px;
+  background-color: $navy-currito;
+  margin: 0 auto 35px auto;
+}
+
+.texto-principal {
+  font-size: 1.25rem;
+  color: $grey-texto;
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+.seccion-ancho-completo {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banda-info {
+  display: flex;
+  width: 100%;
+  min-height: 60vh;
+  background-color: $grey-light;
+}
+
+.banda-alternada {
+  flex-direction: row-reverse;
+  background-color: $grey-light;
+}
+
+.mitad-imagen {
+  width: 50%;
+  position: relative;
+}
+
+.mitad-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mitad-texto {
+  width: 50%;
+  padding: 8% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.mitad-texto h3 {
+  color: $navy-currito;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mitad-texto p {
+  color: $grey-texto;
+  line-height: 1.8;
+  font-size: 1.15rem;
+}
+
+.seccion-cta {
+  background-color: $navy-currito;
+  padding: 80px 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.contenedor-cta {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.seccion-cta h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.seccion-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.btn-cta {
+  display: inline-block;
+  background-color: #ffffff;
+  color: $navy-currito;
+  padding: 18px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta:hover {
+  background-color: $grey-light;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .seccion-cta h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 1100px) {
+
+  .banda-info,
+  .banda-alternada {
+    flex-direction: column !important;
+  }
+
+  .mitad-imagen,
+  .mitad-texto {
+    width: 100% !important;
+  }
+
+  .mitad-imagen {
+    position: relative;
+    height: 350px;
+  }
+
+  .mitad-imagen img {
+    position: relative;
+  }
+
+  .mitad-texto {
+    padding: 60px 30px !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mitad-texto h3 {
+    font-size: 1.6rem;
+  }
+}

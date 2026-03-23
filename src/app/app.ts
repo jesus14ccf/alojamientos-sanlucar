@@ -30,7 +30,8 @@ export class App {
           event.urlAfterRedirects === '/home' ||
           event.urlAfterRedirects === '/' ||
           event.urlAfterRedirects === '/apartamentos' ||
-          event.urlAfterRedirects.startsWith('/apartamento/');
+          event.urlAfterRedirects.startsWith('/apartamento/') ||
+          event.urlAfterRedirects === '/sanlucar';
       });
   }
 

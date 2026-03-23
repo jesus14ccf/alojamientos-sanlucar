@@ -20,6 +20,9 @@ export class AdminPanel implements OnInit {
   casaSeleccionadaParaFotos: any = null;
   fotosActuales: any[] = [];
   fotosExtraNuevas: File[] = [];
+  reservasFiltradas: Reserva[] = [];
+  fechaFiltroInicio: string = '';
+  fechaFiltroFin: string = '';
 
   seccionActual: 'alojamientos' | 'reservas' = 'alojamientos';
   mostrarFormulario: boolean = false;
@@ -63,7 +66,10 @@ export class AdminPanel implements OnInit {
     });
 
     this.reservaService.listarReservas().subscribe({
-      next: (data: Reserva[]) => (this.listaReservas = data),
+      next: (data: Reserva[]) => {
+        this.listaReservas = data;
+        this.reservasFiltradas = [...data];
+      },
       error: (err: any) => console.error('Error al listar reservas', err),
     });
   }
@@ -150,7 +156,7 @@ export class AdminPanel implements OnInit {
             (r) => r.id_reserva === idReserva,
           );
           if (index !== -1) {
-            this.listaReservas[index].estado = nuevoEstado;
+            this.reservasFiltradas[index].estado = nuevoEstado;
           }
         } else {
           alert('Error del servidor: ' + respuesta.message);
@@ -260,5 +266,35 @@ export class AdminPanel implements OnInit {
         },
       });
     }
+  }
+
+  filtrarReservas() {
+    if (!this.fechaFiltroInicio && !this.fechaFiltroFin) {
+      this.reservasFiltradas = [...this.listaReservas];
+      return;
+    }
+
+    this.reservasFiltradas = this.listaReservas.filter((res) => {
+      let pasaFiltro = true;
+      const fechaEntradaRes = new Date(res.fecha_entrada);
+
+      if (this.fechaFiltroInicio) {
+        const fInicio = new Date(this.fechaFiltroInicio);
+        if (fechaEntradaRes < fInicio) pasaFiltro = false;
+      }
+
+      if (this.fechaFiltroFin) {
+        const fFin = new Date(this.fechaFiltroFin);
+        if (fechaEntradaRes > fFin) pasaFiltro = false;
+      }
+
+      return pasaFiltro;
+    });
+  }
+
+  limpiarFiltro() {
+    this.fechaFiltroInicio = '';
+    this.fechaFiltroFin = '';
+    this.reservasFiltradas = [...this.listaReservas];
   }
 }
