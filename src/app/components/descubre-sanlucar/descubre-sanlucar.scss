@@ -259,6 +259,28 @@ $grey-light: #f4f6f8;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+.animable {
+  opacity: 0;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.anim-fade-up {
+  transform: translateY(60px);
+}
+
+.anim-slide-left {
+  transform: translateX(-100px);
+}
+
+.anim-slide-right {
+  transform: translateX(100px);
+}
+
+.animable.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 @media (max-width: 768px) {
   .seccion-cta h2 {
     font-size: 2rem;
