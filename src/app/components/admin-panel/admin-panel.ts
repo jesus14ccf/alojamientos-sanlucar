@@ -23,6 +23,7 @@ export class AdminPanel implements OnInit {
   reservasFiltradas: Reserva[] = [];
   fechaFiltroInicio: string = '';
   fechaFiltroFin: string = '';
+  fotoPrincipalSeleccionada: File | null = null;
 
   seccionActual: 'alojamientos' | 'reservas' = 'alojamientos';
   mostrarFormulario: boolean = false;
@@ -79,8 +80,38 @@ export class AdminPanel implements OnInit {
     this.mostrarFormulario = false;
   }
 
+
+  onFotoPrincipalSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.fotoPrincipalSeleccionada = file;
+      console.log('Foto principal lista para subir:', file.name);
+    }
+  }
+
   crearPropiedad() {
-    this.propiedadService.createPropiedad(this.nuevaPropiedad).subscribe({
+    const formData = new FormData();
+
+    formData.append('nombre', this.nuevaPropiedad.nombre);
+    formData.append('ubicacion', this.nuevaPropiedad.ubicacion);
+    formData.append('descripcion', this.nuevaPropiedad.descripcion);
+    formData.append('precio_noche',this.nuevaPropiedad.precio_noche.toString(),);
+    formData.append('capacidad', this.nuevaPropiedad.capacidad.toString());
+    formData.append('habitaciones',this.nuevaPropiedad.habitaciones.toString(),);
+    formData.append('banos', this.nuevaPropiedad.banos.toString());
+    formData.append('piscina', this.nuevaPropiedad.piscina.toString());
+    formData.append('wifi', this.nuevaPropiedad.wifi.toString());
+    formData.append('garaje', this.nuevaPropiedad.garaje.toString());
+    formData.append('padel', this.nuevaPropiedad.padel.toString());
+
+    if (this.fotoPrincipalSeleccionada) {
+      formData.append('imagen_principal', this.fotoPrincipalSeleccionada);
+    } else {
+      alert('Por favor, selecciona la imagen principal de la casa');
+      return;
+    }
+
+    this.propiedadService.createPropiedad(formData).subscribe({
       next: (res: any) => {
         const nuevoId = res.id;
 
@@ -101,7 +132,7 @@ export class AdminPanel implements OnInit {
               },
             });
         } else {
-          alert('Propiedad añadida con éxito (sin fotos de galería)');
+          alert('No se añadio correctamente');
           this.resetearFormulario();
         }
       },
@@ -220,6 +251,7 @@ export class AdminPanel implements OnInit {
       });
     }
   }
+
 
   onFotosExtraSelected(event: any) {
     if (event.target.files && event.target.files.length > 0) {

@@ -58,8 +58,8 @@ export class Propiedades {
     return this.http.get<Propiedad[]>(`${this.URL_BUSCAR}?entrada=${fechaEntrada}&salida=${fechaSalida}`);
   }
 
-  createPropiedad(p: Propiedad): Observable<any> {
-    return this.http.post(this.URL_API, p);
+  createPropiedad(formData: FormData): Observable<any> {
+    return this.http.post(this.URL_API, formData);
   }
 
   deletePropiedad(id: number): Observable<any> {
