@@ -260,6 +260,7 @@ $wa-dark: #128C7E;
 
 .whatsapp-widget {
   position: fixed;
+  pointer-events: none;
   bottom: 30px;
   right: 30px;
   z-index: 9999;
@@ -270,6 +271,7 @@ $wa-dark: #128C7E;
 
 .whatsapp-btn-flotante {
   background-color: $wa-green;
+  pointer-events: auto;
   color: white;
   border: none;
   width: 60px;
@@ -291,6 +293,7 @@ $wa-dark: #128C7E;
 
 .whatsapp-popup {
   width: 320px;
+  pointer-events: auto;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -304,6 +307,7 @@ $wa-dark: #128C7E;
 
 .whatsapp-popup.abierto {
   opacity: 1;
+  pointer-events: auto;
   visibility: visible;
   transform: translateY(0);
 }
