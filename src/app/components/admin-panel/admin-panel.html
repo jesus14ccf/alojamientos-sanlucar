@@ -65,6 +65,11 @@
                     <i class="fas fa-images"></i> Galería
                   </button>
 
+                  <button class="btn-approve" style="background: #d9534f; color: white; margin-right: 5px;"
+                    (click)="abrirModalBloqueo(casa)">
+                    <i class="fas fa-lock"></i> Bloquear
+                  </button>
+
                   <button class="btn-del" (click)="borrarCasa(casa.id_propiedad!)">Borrar</button>
 
                 </td>
@@ -312,6 +317,39 @@
 
       </div>
 
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModalBloqueo">
+    <div class="admin-card" style="max-width: 400px; margin: 10vh auto; position: relative; padding: 20px;">
+
+      <button (click)="cerrarModalBloqueo()"
+        style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <h2 style="margin-top: 0; color: #d9534f; font-size: 1.5rem;">
+        <i class="fas fa-lock"></i> Bloquear Fechas
+      </h2>
+      <p style="color: #666; margin-bottom: 20px;">
+        Propiedad: <strong>{{ casaSeleccionadaParaBloqueo?.nombre }}</strong>
+      </p>
+
+      <div class="form-group">
+        <label>Fecha de Entrada</label>
+        <input type="date" [(ngModel)]="fechaInicioBloqueo"
+          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
+      </div>
+
+      <div class="form-group" style="margin-top: 15px;">
+        <label>Fecha de Salida</label>
+        <input type="date" [(ngModel)]="fechaFinBloqueo"
+          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
+      </div>
+
+      <button class="btn-add" style="width: 100%; margin-top: 25px; background: #d9534f;" (click)="ejecutarBloqueo()">
+        CONFIRMAR BLOQUEO
+      </button>
     </div>
   </div>
 

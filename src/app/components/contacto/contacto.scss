@@ -1,0 +1,139 @@
+// Importamos tus colores corporativos
+$navy-currito: #1e3a5f;
+$grey-texto: #444444;
+$grey-light: #f4f6f8;
+
+.contacto-page {
+
+.contact-hero {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://alojamientossanlucar.es/api/uploads/sanlucarCiudadBanner.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .section-spacing {
+    padding: 80px 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+  }
+
+  .contact-info-col {
+    h2 {
+      color: $navy-currito;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: $grey-texto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      i {
+        font-size: 1.5rem;
+        color: white;
+        background-color: $navy-currito;
+        width: 55px;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba($navy-currito, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i {
+        transform: translateY(-5px);
+      }
+
+      .item-text {
+        h3 {
+          color: $navy-currito;
+          font-size: 1.2rem;
+          margin: 0 0 5px 0;
+        }
+
+        p,
+        a {
+          color: $grey-texto;
+          margin: 0;
+          font-size: 1.05rem;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        a:hover {
+          color: $navy-currito;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .contact-map-col {
+    .map-container {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid $grey-light;
+
+      iframe {
+        display: block;
+        width: 100%;
+        min-height: 450px;
+      }
+    }
+  }
+}

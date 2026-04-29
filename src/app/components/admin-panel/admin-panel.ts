@@ -24,6 +24,10 @@ export class AdminPanel implements OnInit {
   fechaFiltroInicio: string = '';
   fechaFiltroFin: string = '';
   fotoPrincipalSeleccionada: File | null = null;
+  mostrarModalBloqueo: boolean = false;
+  casaSeleccionadaParaBloqueo: any = null;
+  fechaInicioBloqueo: string = '';
+  fechaFinBloqueo: string = '';
 
   seccionActual: 'alojamientos' | 'reservas' = 'alojamientos';
   mostrarFormulario: boolean = false;
@@ -80,7 +84,6 @@ export class AdminPanel implements OnInit {
     this.mostrarFormulario = false;
   }
 
-
   onFotoPrincipalSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -95,9 +98,15 @@ export class AdminPanel implements OnInit {
     formData.append('nombre', this.nuevaPropiedad.nombre);
     formData.append('ubicacion', this.nuevaPropiedad.ubicacion);
     formData.append('descripcion', this.nuevaPropiedad.descripcion);
-    formData.append('precio_noche',this.nuevaPropiedad.precio_noche.toString(),);
+    formData.append(
+      'precio_noche',
+      this.nuevaPropiedad.precio_noche.toString(),
+    );
     formData.append('capacidad', this.nuevaPropiedad.capacidad.toString());
-    formData.append('habitaciones',this.nuevaPropiedad.habitaciones.toString(),);
+    formData.append(
+      'habitaciones',
+      this.nuevaPropiedad.habitaciones.toString(),
+    );
     formData.append('banos', this.nuevaPropiedad.banos.toString());
     formData.append('piscina', this.nuevaPropiedad.piscina.toString());
     formData.append('wifi', this.nuevaPropiedad.wifi.toString());
@@ -252,7 +261,6 @@ export class AdminPanel implements OnInit {
     }
   }
 
-
   onFotosExtraSelected(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       this.fotosExtraNuevas = Array.from(event.target.files);
@@ -275,6 +283,48 @@ export class AdminPanel implements OnInit {
         },
         error: (err) => alert('Error al subir las nuevas fotos'),
       });
+  }
+
+  ejecutarBloqueo() {
+    if (!this.fechaInicioBloqueo || !this.fechaFinBloqueo) {
+      alert(
+        'Por favor, selecciona las fechas de entrada y salida para bloquear.',
+      );
+      return;
+    }
+
+    const datosBloqueo = {
+      id_propiedad: this.casaSeleccionadaParaBloqueo.id_propiedad,
+      fecha_entrada: this.fechaInicioBloqueo,
+      fecha_salida: this.fechaFinBloqueo,
+      nombre: 'BLOQUEO MANUAL ADMIN',
+      email: 'admin@alojamientos.com',
+      telefono: '000000000',
+      huespedes: 1,
+    };
+
+    this.propiedadService.crearReserva(datosBloqueo).subscribe({
+      next: (res) => {
+        alert('Fechas bloqueadas correctamente en el calendario.');
+        this.cerrarModalBloqueo();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Hubo un error al intentar bloquear las fechas.');
+      },
+    });
+  }
+
+  abrirModalBloqueo(casa: any) {
+    this.casaSeleccionadaParaBloqueo = casa;
+    this.fechaInicioBloqueo = '';
+    this.fechaFinBloqueo = '';
+    this.mostrarModalBloqueo = true;
+  }
+
+  cerrarModalBloqueo() {
+    this.mostrarModalBloqueo = false;
+    this.casaSeleccionadaParaBloqueo = null;
   }
 
   borrarReserva(idReserva: number): void {
