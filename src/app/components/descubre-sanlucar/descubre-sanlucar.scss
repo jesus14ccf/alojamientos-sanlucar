@@ -47,22 +47,22 @@ $grey-light: #f4f6f8;
       animation: heroSlideshow 20s infinite linear;
 
       &.slide-1 {
-        background-image: url('/img/plazaCabildo.jpg');
+        background-image: url('/img/plazaCabildo.webp');
         animation-delay: 0s;
       }
 
       &.slide-2 {
-        background-image: url('/img/puestaSol.jpg');
+        background-image: url('/img/puestaSol.webp');
         animation-delay: 5s;
       }
 
       &.slide-3 {
-        background-image: url('/img/tortillasCamarones.jpg');
+        background-image: url('/img/tortillasCamarones.webp');
         animation-delay: 10s;
       }
 
       &.slide-4 {
-        background-image: url('/img/carrerasCaballos.jpg');
+        background-image: url('/img/carrerasCaballos.webp');
         animation-delay: 15s;
       }
     }
@@ -167,7 +167,7 @@ $grey-light: #f4f6f8;
 .banda-info {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  min-height: 60vh;
   background-color: $grey-light;
 }
 

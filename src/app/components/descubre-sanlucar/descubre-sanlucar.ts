@@ -1,9 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
-import * as AOS from 'aos';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-descubre-sanlucar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './descubre-sanlucar.html',
   styleUrl: './descubre-sanlucar.scss',
 })
