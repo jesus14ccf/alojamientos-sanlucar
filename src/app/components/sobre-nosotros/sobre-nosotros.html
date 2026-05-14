@@ -1,1 +1,46 @@
-<p>sobre-nosotros works!</p>
+<div class="sobre-nosotros-page">
+
+  <section class="about-hero">
+    <div class="about-hero-content container">
+      <h1>Nuestra Historia</h1>
+    </div>
+  </section>
+
+  <section class="about-content section-spacing">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-text-col">
+          <h2>Bienvenidos a Casa Currito</h2>
+          <p class="lead-text">Somos unas apasionadas de Sanlúcar de Barrameda y queremos que te sientas como en tu
+            propia casa.</p>
+
+          <p>Llevamos años dedicándonos a cuidar cada detalle de nuestros alojamientos para ofrecerte una experiencia
+            única e inolvidable. Nuestro objetivo no es solo darte un lugar donde dormir, sino un rincón donde crear
+            recuerdos inolvidables con tu familia y amigos.</p>
+
+          <p>En este vídeo te contamos un poquito más sobre nosotras, nuestra filosofía y el cariño que hay detrás de
+            cada rincón de nuestras casas. ¡Estamos deseando conocerte y darte la bienvenida!</p>
+
+          <button class="btn-ver-casas" [routerLink]="['/apartamentos']">
+            <i class="fas fa-home"></i> VER NUESTROS ALOJAMIENTOS
+          </button>
+        </div>
+
+        <div class="about-video-col">
+          <div class="video-wrapper">
+
+            <iframe src="https://www.youtube.com/embed/TU_CODIGO_DE_VIDEO" title="Presentación Casa Currito"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>

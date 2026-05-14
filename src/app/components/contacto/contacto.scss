@@ -5,7 +5,7 @@ $grey-light: #f4f6f8;
 
 .contacto-page {
 
-.contact-hero {
+  .contact-hero {
     position: relative;
     height: 70vh;
     width: 100%;
@@ -117,6 +117,29 @@ $grey-light: #f4f6f8;
           color: $navy-currito;
           font-weight: 600;
         }
+      }
+    }
+
+    .btn-ver-casas {
+      margin-top: 45px;
+      padding: 15px 30px;
+      background-color: $navy-currito;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba($navy-currito, 0.3);
+
+      &:hover {
+        background-color: lighten($navy-currito, 10%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba($navy-currito, 0.4);
       }
     }
   }

@@ -32,7 +32,8 @@ export class App {
           event.urlAfterRedirects === '/apartamentos' ||
           event.urlAfterRedirects.startsWith('/apartamento/') ||
           event.urlAfterRedirects === '/contacto' ||
-          event.urlAfterRedirects === '/sanlucar';
+          event.urlAfterRedirects === '/sanlucar' ||
+          event.urlAfterRedirects === '/sobre-nosotros';
       });
   }
 

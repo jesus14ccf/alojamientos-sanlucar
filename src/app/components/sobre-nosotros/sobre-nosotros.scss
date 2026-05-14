@@ -1,0 +1,126 @@
+$navy-currito: #1e3a5f;
+$grey-texto: #444444;
+$grey-light: #f4f6f8;
+
+.sobre-nosotros-page {
+
+  .about-hero {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/img/donana2.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .section-spacing {
+    padding: 80px 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  .about-text-col {
+    h2 {
+      color: $navy-currito;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .lead-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $navy-currito;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: $grey-texto;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .btn-ver-casas {
+      margin-top: 25px;
+      padding: 15px 30px;
+      background-color: $navy-currito;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba($navy-currito, 0.3);
+
+      &:hover {
+        background-color: lighten($navy-currito, 10%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba($navy-currito, 0.4);
+      }
+    }
+  }
+
+  .about-video-col {
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      border: 4px solid white;
+
+      video {
+        width: 100%;
+        display: block;
+      }
+
+      padding-bottom: 56.25%;
+      height: 0;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
