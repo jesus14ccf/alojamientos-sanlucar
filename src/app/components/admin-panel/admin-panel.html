@@ -70,6 +70,12 @@
                     <i class="fas fa-lock"></i> Bloquear
                   </button>
 
+                  <button class="btn-approve" style="background: #007bff; color: white; margin-right: 5px;"
+                    (click)="editarCasa(casa)">
+                    <i class="fas fa-edit"></i> Editar
+                  </button>
+
+
                   <button class="btn-del" (click)="borrarCasa(casa.id_propiedad!)">Borrar</button>
 
                 </td>
@@ -83,11 +89,11 @@
     <section class="admin-card" *ngIf="mostrarFormulario">
 
       <div class="card-header">
-        <h2>Añadir Nuevo Alojamiento</h2>
+        <h2>{{ modoEdicion ? 'Editar Alojamiento' : 'Añadir Nuevo Alojamiento' }}</h2>
         <button class="btn-del" (click)="mostrarFormulario = false">Cancelar</button>
       </div>
 
-      <form (ngSubmit)="crearPropiedad()" class="admin-form">
+      <form (ngSubmit)="guardarPropiedad()" class="admin-form">
 
         <div class="form-grid">
 
@@ -114,6 +120,12 @@
           <div class="form-group">
             <label>Nº de Habitaciones</label>
             <input type="number" [(ngModel)]="nuevaPropiedad.habitaciones" name="habitaciones" min="1" required>
+          </div>
+
+          <div class="form-group">
+            <label>Distribución de Camas</label>
+            <input type="text" [(ngModel)]="nuevaPropiedad.camas" name="camas"
+              placeholder="Ej: 1 de matrimonio, 2 individuales">
           </div>
 
           <div class="form-group">
@@ -192,7 +204,7 @@
         <h2>Gestión de Reservas</h2>
       </div>
 
-      <div class="filter-bar">
+      <div class="filter-bar table-responsive">
 
         <div class="filter-group">
           <label>Fecha de entrada (Desde):</label>

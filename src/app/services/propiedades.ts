@@ -18,6 +18,8 @@ export interface Propiedad {
   id_usuario: number;
   capacidad: number;
   visible?: number;
+  expandida?: boolean;
+  camas?: string;
 }
 
 export interface Foto {
@@ -32,10 +34,13 @@ export interface Foto {
 export class Propiedades {
   private URL_API = 'https://alojamientossanlucar.es/api/admin_propiedades.php';
   private URL_OCUPACION = 'https://alojamientossanlucar.es/api/ocupacion.php';
-  private URL_SUBIR_FOTOS = 'https://alojamientossanlucar.es/api/subir_fotos.php';
+  private URL_SUBIR_FOTOS =
+    'https://alojamientossanlucar.es/api/subir_fotos.php';
   private URL_FOTOS = 'https://alojamientossanlucar.es/api/fotos.php';
-  private URL_BORRAR_FOTO = 'https://alojamientossanlucar.es/api/borrar_foto.php';
-  private URL_BUSCAR = 'https://alojamientossanlucar.es/api/get_propiedades.php';
+  private URL_BORRAR_FOTO =
+    'https://alojamientossanlucar.es/api/borrar_foto.php';
+  private URL_BUSCAR =
+    'https://alojamientossanlucar.es/api/get_propiedades.php';
   private URL_RESERVA = 'https://alojamientossanlucar.es/api/reservas.php';
 
   constructor(private http: HttpClient) {}
@@ -54,8 +59,13 @@ export class Propiedades {
   }
 
   //   Filtrar alojamientos en apartamentos.html pasandole fechas
-  getPropiedadesDisponibles(fechaEntrada: string, fechaSalida: string): Observable<Propiedad[]> {
-    return this.http.get<Propiedad[]>(`${this.URL_BUSCAR}?entrada=${fechaEntrada}&salida=${fechaSalida}`);
+  getPropiedadesDisponibles(
+    fechaEntrada: string,
+    fechaSalida: string,
+  ): Observable<Propiedad[]> {
+    return this.http.get<Propiedad[]>(
+      `${this.URL_BUSCAR}?entrada=${fechaEntrada}&salida=${fechaSalida}`,
+    );
   }
 
   createPropiedad(formData: FormData): Observable<any> {
@@ -96,6 +106,10 @@ export class Propiedades {
 
   crearReserva(reservaData: any): Observable<any> {
     return this.http.post(this.URL_RESERVA, reservaData);
+  }
+
+  updatePropiedad(formData: FormData): Observable<any> {
+    return this.http.post(this.URL_API, formData);
   }
 
 }

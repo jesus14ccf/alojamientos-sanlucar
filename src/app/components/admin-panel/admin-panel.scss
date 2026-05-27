@@ -405,4 +405,43 @@ $rojo: #dc3545;
       width: 100%;
     }
   }
+
+  .admin-form {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 15px !important;
+    overflow-x: hidden;
+  }
+
+  .form-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .form-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+
+    input,
+    select,
+    textarea {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  }
+
+  .form-group.full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px !important;
+  }
+
 }

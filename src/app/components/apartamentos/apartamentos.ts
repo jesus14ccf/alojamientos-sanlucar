@@ -41,19 +41,23 @@ export class Apartamentos implements OnInit {
       `Buscando casas libres desde el ${this.fechaEntrada} hasta el ${this.fechaSalida}`,
     );
 
-    this.apiService.getPropiedadesDisponibles(this.fechaEntrada, this.fechaSalida).subscribe({
-      next: (casasDisponibles) => {
-        this.listaPropiedades = casasDisponibles;
+    this.apiService
+      .getPropiedadesDisponibles(this.fechaEntrada, this.fechaSalida)
+      .subscribe({
+        next: (casasDisponibles) => {
+          this.listaPropiedades = casasDisponibles;
 
-        if (this.listaPropiedades.length === 0) {
-          alert('Lo sentimos, no hay alojamientos disponibles para esas fechas. Prueba con otros días.');
-        }
-      },
-      error: (err) => {
-        console.error('Error al buscar disponibilidad:', err);
-        alert('Hubo un problema de conexión al buscar. Inténtalo de nuevo.');
-      }
-    });
+          if (this.listaPropiedades.length === 0) {
+            alert(
+              'Lo sentimos, no hay alojamientos disponibles para esas fechas. Prueba con otros días.',
+            );
+          }
+        },
+        error: (err) => {
+          console.error('Error al buscar disponibilidad:', err);
+          alert('Hubo un problema de conexión al buscar. Inténtalo de nuevo.');
+        },
+      });
   }
 
   cargarPropiedades() {
@@ -68,4 +72,8 @@ export class Apartamentos implements OnInit {
     });
   }
 
+  toggleDescripcion(casa: any, event: Event) {
+    event.stopPropagation();
+    casa.expandida = !casa.expandida;
+  }
 }

@@ -22,6 +22,7 @@ $color-acento: #d4af37;
 
 .grid-apartamentos {
   display: grid;
+  align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 40px;
 }
@@ -128,7 +129,27 @@ $color-acento: #d4af37;
       line-clamp: 3;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      transition: all 0.3s ease;
       overflow: hidden;
+    }
+
+    .descripcion-corta.texto-completo {
+      display: block;
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+    }
+
+    .btn-leer-mas {
+      color: #007bff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .btn-leer-mas:hover {
+      text-decoration: underline;
     }
 
     .btn-detalles {
@@ -228,7 +249,7 @@ $color-acento: #d4af37;
   height: 600px;
   background:
     linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)),
-    url('../../../../public/img/ADOSADO.webp') center/cover no-repeat;
+    url('https://alojamientossanlucar.es/api/uploads/ADOSADO.webp') center/cover no-repeat;
 
   justify-content: center;
   align-items: center;
@@ -279,7 +300,7 @@ $color-acento: #d4af37;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
 
     .breadcrumbs {
@@ -289,6 +310,7 @@ $color-acento: #d4af37;
 }
 
 @media (max-width: 768px) {
+
   .apartamentos-container {
     padding-top: 80px;
   }
@@ -312,12 +334,14 @@ $color-acento: #d4af37;
 
   .buscador-flotante {
     padding-top: 90px;
+    margin-top: -20px;
     margin-bottom: -20px;
     background-color: #f8f9fa;
     z-index: 0;
 
     .buscador-inner {
       flex-direction: column;
+      margin-top: -30px;
       border-radius: 20px;
       padding: 20px;
       gap: 15px;
@@ -340,3 +364,5 @@ $color-acento: #d4af37;
     }
   }
 }
+
+

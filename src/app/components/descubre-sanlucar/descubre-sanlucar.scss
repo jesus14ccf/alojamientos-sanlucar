@@ -98,6 +98,24 @@ $grey-light: #f4f6f8;
       }
     }
   }
+
+  .btn-apartamentos {
+    background-color: transparent;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: white;
+      color: #1a5f7a;
+      transform: translateY(-3px);
+    }
+  }
 }
 
 @keyframes heroSlideshow {
@@ -282,39 +300,52 @@ $grey-light: #f4f6f8;
 }
 
 @media (max-width: 768px) {
+
+  .seccion-bienvenida {
+    margin-top: -40px;
+  }
   .seccion-cta h2 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 1100px) {
-
-  .banda-info,
-  .banda-alternada {
-    flex-direction: column !important;
+    font-size: 2.5rem;
   }
 
-  .mitad-imagen,
-  .mitad-texto {
-    width: 100% !important;
-  }
-
-  .mitad-imagen {
-    position: relative;
-    height: 350px;
-  }
-
-  .mitad-imagen img {
-    position: relative;
-  }
-
-  .mitad-texto {
-    padding: 60px 30px !important;
+  .hero-slideshow-section {
+    display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    min-height: 80vh;
   }
 
-  .mitad-texto h3 {
-    font-size: 1.6rem;
+  .contenido-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+    width: 100%;
+    box-sizing: border-box;
+
+    h1 {
+      font-size: 3rem !important;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: 1.1rem !important;
+      margin-bottom: 25px;
+      max-width: 320px;
+      line-height: 1.4;
+    }
+
+    .btn-apartamentos {
+      width: auto !important;
+      min-width: 200px;
+      padding: 12px 28px !important;
+      font-size: 1rem !important;
+      display: inline-block;
+    }
   }
 }

@@ -783,11 +783,17 @@ p {
     height: 400px;
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
 
     .breadcrumbs {
       font-size: 0.9rem;
+    }
+  }
+
+  .caja-datos {
+    h3 {
+      text-align: center;
     }
   }
 
@@ -825,6 +831,8 @@ p {
 
   .texto-descriptivo {
     order: 1;
+    margin-bottom: 15px;
+    text-align: center;
   }
 
   .caja-datos {
@@ -874,6 +882,7 @@ p {
   }
 
   .seccion-reserva {
+    margin-top: -15px;
     padding: 30px 20px;
     margin-bottom: 50px;
   }

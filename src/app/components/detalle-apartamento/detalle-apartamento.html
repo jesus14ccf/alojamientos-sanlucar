@@ -53,10 +53,18 @@
           </li>
 
           <li *ngIf="casa.habitaciones">
-            <i class="fas fa-bed"></i>
+            <i class="fas fa-door-open"></i>
             <div class="dato-texto">
               <strong>Habitaciones:</strong>
               <span>{{ casa.habitaciones }}</span>
+            </div>
+          </li>
+
+          <li *ngIf="casa.camas">
+            <i class="fas fa-bed"></i>
+            <div class="dato-texto">
+              <strong>Camas:</strong>
+              <span>{{ casa.camas }}</span>
             </div>
           </li>
 

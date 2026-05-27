@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-descubre-sanlucar',
+  standalone:true,
   imports: [RouterLink],
   templateUrl: './descubre-sanlucar.html',
   styleUrl: './descubre-sanlucar.scss',

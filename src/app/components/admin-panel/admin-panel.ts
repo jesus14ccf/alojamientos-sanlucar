@@ -28,6 +28,7 @@ export class AdminPanel implements OnInit {
   casaSeleccionadaParaBloqueo: any = null;
   fechaInicioBloqueo: string = '';
   fechaFinBloqueo: string = '';
+  modoEdicion: boolean = false;
 
   seccionActual: 'alojamientos' | 'reservas' = 'alojamientos';
   mostrarFormulario: boolean = false;
@@ -40,6 +41,7 @@ export class AdminPanel implements OnInit {
     imagen_principal: '',
     capacidad: 1,
     habitaciones: 1,
+    camas: '',
     banos: 1,
     piscina: 0,
     wifi: 0,
@@ -92,9 +94,10 @@ export class AdminPanel implements OnInit {
     }
   }
 
-  crearPropiedad() {
+  guardarPropiedad() {
     const formData = new FormData();
 
+    // 1. Añades todos los campos de texto EXACTAMENTE igual que los tienes en tu foto
     formData.append('nombre', this.nuevaPropiedad.nombre);
     formData.append('ubicacion', this.nuevaPropiedad.ubicacion);
     formData.append('descripcion', this.nuevaPropiedad.descripcion);
@@ -107,46 +110,53 @@ export class AdminPanel implements OnInit {
       'habitaciones',
       this.nuevaPropiedad.habitaciones.toString(),
     );
+    formData.append('camas', this.nuevaPropiedad.camas);
     formData.append('banos', this.nuevaPropiedad.banos.toString());
     formData.append('piscina', this.nuevaPropiedad.piscina.toString());
     formData.append('wifi', this.nuevaPropiedad.wifi.toString());
     formData.append('garaje', this.nuevaPropiedad.garaje.toString());
     formData.append('padel', this.nuevaPropiedad.padel.toString());
 
+
+    if (this.modoEdicion) {
+      formData.append(
+        'id_propiedad',
+        this.nuevaPropiedad.id_propiedad.toString(),
+      );
+      formData.append('accion', 'editar');
+    }
+
     if (this.fotoPrincipalSeleccionada) {
       formData.append('imagen_principal', this.fotoPrincipalSeleccionada);
-    } else {
+    } else if (!this.modoEdicion) {
       alert('Por favor, selecciona la imagen principal de la casa');
       return;
     }
 
-    this.propiedadService.createPropiedad(formData).subscribe({
-      next: (res: any) => {
-        const nuevoId = res.id;
+    if (this.modoEdicion) {
 
-        if (this.fotosSeleccionadas.length > 0 && nuevoId) {
-          this.propiedadService
-            .uploadFotos(nuevoId, this.fotosSeleccionadas)
-            .subscribe({
-              next: () => {
-                alert('Propiedad y fotos de la galería añadidas con éxito');
-                this.resetearFormulario();
-              },
-              error: (err) => {
-                console.error('Error al subir las fotos:', err);
-                alert(
-                  'La propiedad se creó, pero hubo un fallo al subir las fotos extra.',
-                );
-                this.resetearFormulario();
-              },
-            });
-        } else {
-          alert('No se añadio correctamente');
+      this.propiedadService.updatePropiedad(formData).subscribe({
+        next: (res: any) => {
+          alert('Alojamiento actualizado correctamente');
           this.resetearFormulario();
-        }
-      },
-      error: (err) => alert('Error al crear la propiedad'),
-    });
+          this.modoEdicion = false;
+        },
+        error: (err: any) => alert('Error al actualizar la propiedad'),
+      });
+    } else {
+      this.propiedadService.createPropiedad(formData).subscribe({
+        next: (res: any) => {
+          const nuevoId = res.id;
+
+          if (this.fotosSeleccionadas.length > 0 && nuevoId) {
+          } else {
+            alert('Propiedad creada correctamente sin fotos extra');
+            this.resetearFormulario();
+          }
+        },
+        error: (err) => alert('Error al crear la propiedad'),
+      });
+    }
   }
 
   resetearFormulario() {
@@ -161,6 +171,7 @@ export class AdminPanel implements OnInit {
       imagen_principal: '',
       capacidad: 1,
       habitaciones: 1,
+      camas: '',
       banos: 1,
       piscina: 0,
       wifi: 0,
@@ -378,5 +389,17 @@ export class AdminPanel implements OnInit {
     this.fechaFiltroInicio = '';
     this.fechaFiltroFin = '';
     this.reservasFiltradas = [...this.listaReservas];
+  }
+
+  editarCasa(casaSeleccionada: any) {
+    this.modoEdicion = true;
+    this.nuevaPropiedad = { ...casaSeleccionada };
+    this.mostrarFormulario = true;
+  }
+
+  abrirFormularioNuevo() {
+    this.modoEdicion = false;
+    this.nuevaPropiedad = {};
+    this.mostrarFormulario = true;
   }
 }
