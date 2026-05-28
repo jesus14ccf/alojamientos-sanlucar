@@ -348,4 +348,41 @@ $grey-light: #f4f6f8;
       display: inline-block;
     }
   }
+
+}
+
+@media (max-width: 1100px) {
+
+  .banda-info,
+  .banda-alternada {
+    flex-direction: column !important;
+  }
+
+  .mitad-imagen,
+  .mitad-texto {
+    width: 100% !important;
+  }
+
+  .mitad-imagen {
+    position: relative;
+    height: 350px;
+  }
+
+  .mitad-imagen img {
+    position: relative;
+  }
+
+  .mitad-texto {
+    padding: 60px 30px !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mitad-texto h3 {
+    font-size: 1.6rem;
+  }
+
+  .enlace-banda {
+    align-self: center !important;
+  }
 }
