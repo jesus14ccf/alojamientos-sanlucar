@@ -26,6 +26,9 @@ export class App {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
+
+        window.scrollTo(0, 0);
+
         this.isHome =
           event.urlAfterRedirects === '/home' ||
           event.urlAfterRedirects === '/' ||
