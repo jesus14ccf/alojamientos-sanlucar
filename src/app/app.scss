@@ -1,4 +1,5 @@
 $azul-mar: #1a5f7a;
+$navy-currito:  rgba(17, 104, 139, 0.9);
 
 .header-principal {
   position: fixed;
@@ -78,8 +79,8 @@ $azul-mar: #1a5f7a;
     display: none;
     flex-direction: column;
     justify-content: space-around;
-    width: 30px;
-    height: 25px;
+    width: 40px;
+    height: 30px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -114,7 +115,7 @@ $azul-mar: #1a5f7a;
       left: 0;
       width: 100%;
       height: 0;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: $navy-currito;
       overflow: hidden;
       transition: height 0.3s ease;
 
@@ -131,7 +132,7 @@ $azul-mar: #1a5f7a;
       }
 
       &.menu-abierto {
-        height: 260px;
+        height: 290px;
       }
     }
   }

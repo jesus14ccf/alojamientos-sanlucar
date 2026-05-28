@@ -415,6 +415,13 @@ $grey-light: #f4f6f8;
 }
 
 @media (max-width: 768px) {
+
+  .hero-section {
+    background-attachment: scroll !important;
+    background-position: center center !important;
+    height: 100dvh !important;
+  }
+
   .seccion-servicios {
     padding: 60px 20px;
   }

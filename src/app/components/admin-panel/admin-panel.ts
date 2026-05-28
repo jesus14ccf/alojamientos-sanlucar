@@ -97,7 +97,6 @@ export class AdminPanel implements OnInit {
   guardarPropiedad() {
     const formData = new FormData();
 
-    // 1. Añades todos los campos de texto EXACTAMENTE igual que los tienes en tu foto
     formData.append('nombre', this.nuevaPropiedad.nombre);
     formData.append('ubicacion', this.nuevaPropiedad.ubicacion);
     formData.append('descripcion', this.nuevaPropiedad.descripcion);
@@ -117,7 +116,6 @@ export class AdminPanel implements OnInit {
     formData.append('garaje', this.nuevaPropiedad.garaje.toString());
     formData.append('padel', this.nuevaPropiedad.padel.toString());
 
-
     if (this.modoEdicion) {
       formData.append(
         'id_propiedad',
@@ -134,12 +132,39 @@ export class AdminPanel implements OnInit {
     }
 
     if (this.modoEdicion) {
-
       this.propiedadService.updatePropiedad(formData).subscribe({
         next: (res: any) => {
-          alert('Alojamiento actualizado correctamente');
-          this.resetearFormulario();
-          this.modoEdicion = false;
+          const idEditar = this.nuevaPropiedad.id_propiedad;
+          if (
+            this.fotosSeleccionadas &&
+            this.fotosSeleccionadas.length > 0 &&
+            idEditar
+          ) {
+            this.propiedadService
+              .uploadFotos(idEditar, this.fotosSeleccionadas)
+              .subscribe({
+                next: () => {
+                  alert(
+                    'Alojamiento actualizado y nuevas fotos añadidas a la galería',
+                  );
+                  this.resetearFormulario();
+                  this.modoEdicion = false;
+                },
+                error: (err) => {
+                  console.error(err);
+                  alert(
+                    'Los datos se actualizaron, pero hubo un error al subir las fotos nuevas',
+                  );
+                  this.resetearFormulario();
+                  this.modoEdicion = false;
+                },
+              });
+          } else {
+
+            alert('Alojamiento actualizado correctamente');
+            this.resetearFormulario();
+            this.modoEdicion = false;
+          }
         },
         error: (err: any) => alert('Error al actualizar la propiedad'),
       });
@@ -149,6 +174,23 @@ export class AdminPanel implements OnInit {
           const nuevoId = res.id;
 
           if (this.fotosSeleccionadas.length > 0 && nuevoId) {
+            this.propiedadService
+              .uploadFotos(nuevoId, this.fotosSeleccionadas)
+              .subscribe({
+                next: () => {
+                  alert(
+                    'Propiedad creada y fotos de la galería subidas correctamente',
+                  );
+                  this.resetearFormulario();
+                },
+                error: (err) => {
+                  alert(
+                    'La propiedad se creó, pero hubo un error al subir las fotos extra',
+                  );
+                  console.error(err);
+                  this.resetearFormulario();
+                },
+              });
           } else {
             alert('Propiedad creada correctamente sin fotos extra');
             this.resetearFormulario();
@@ -161,6 +203,7 @@ export class AdminPanel implements OnInit {
 
   resetearFormulario() {
     this.mostrarFormulario = false;
+    this.fotoPrincipalSeleccionada = null;
     this.cargarDatos();
     this.fotosSeleccionadas = [];
     this.nuevaPropiedad = {
@@ -398,8 +441,8 @@ export class AdminPanel implements OnInit {
   }
 
   abrirFormularioNuevo() {
+    this.resetearFormulario();
     this.modoEdicion = false;
-    this.nuevaPropiedad = {};
     this.mostrarFormulario = true;
   }
 }
