@@ -160,7 +160,6 @@ export class AdminPanel implements OnInit {
                 },
               });
           } else {
-
             alert('Alojamiento actualizado correctamente');
             this.resetearFormulario();
             this.modoEdicion = false;
@@ -444,5 +443,35 @@ export class AdminPanel implements OnInit {
     this.resetearFormulario();
     this.modoEdicion = false;
     this.mostrarFormulario = true;
+  }
+
+  moverFoto(indexActual: number, direccion: number) {
+    const nuevaPosicion = indexActual + direccion;
+
+    if (nuevaPosicion >= 0 && nuevaPosicion < this.fotosActuales.length) {
+      const fotoMovida = this.fotosActuales[indexActual];
+      this.fotosActuales[indexActual] = this.fotosActuales[nuevaPosicion];
+      this.fotosActuales[nuevaPosicion] = fotoMovida;
+    }
+  }
+
+  guardarOrdenFotos() {
+
+    const nuevoOrden = this.fotosActuales.map((foto, index) => {
+      return {
+        id_foto: foto.id_foto,
+        orden: index + 1,
+      };
+    });
+
+    this.propiedadService.actualizarOrdenFotos(nuevoOrden).subscribe({
+      next: (res: any) => {
+        alert('¡El orden de la galería se ha guardado correctamente!');
+      },
+      error: (err: any) => {
+        alert('Hubo un error al guardar el orden de las fotos.');
+        console.error(err);
+      },
+    });
   }
 }

@@ -42,6 +42,7 @@ export class Propiedades {
   private URL_BUSCAR =
     'https://alojamientossanlucar.es/api/get_propiedades.php';
   private URL_RESERVA = 'https://alojamientossanlucar.es/api/reservas.php';
+  private URL_orden_fotos = 'https://alojamientossanlucar.es/api/actualizar_orden_fotos.php';
 
   constructor(private http: HttpClient) {}
 
@@ -112,4 +113,9 @@ export class Propiedades {
     return this.http.post(this.URL_API, formData);
   }
 
+  actualizarOrdenFotos(nuevoOrden: any[]): Observable<any> {
+    return this.http.post(this.URL_orden_fotos, {
+      ordenes: nuevoOrden,
+    });
+  }
 }
