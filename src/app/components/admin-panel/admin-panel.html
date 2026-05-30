@@ -25,14 +25,24 @@
 
     <ng-container *ngIf="seccionActual === 'alojamientos' && !mostrarFormulario">
       <section class="admin-card">
-        <div class="card-header">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
           <h2>Mis Propiedades</h2>
-          <button class="btn-add" (click)="mostrarFormulario = true">+ Añadir Propiedad</button>
+
+          <div>
+            <button class="btn-add" (click)="guardarOrdenPropiedades()"
+              style="background: #28a745; margin-right: 10px;">
+              <i class="fas fa-save"></i> Guardar Orden
+            </button>
+
+            <button class="btn-add" (click)="mostrarFormulario = true">+ Añadir Propiedad</button>
+          </div>
         </div>
+
         <div class="table-responsive">
           <table class="admin-table">
             <thead>
               <tr>
+                <th>Orden</th>
                 <th>Foto</th>
                 <th>Nombre</th>
                 <th>Visibilidad</th>
@@ -41,8 +51,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let casa of listaCasas">
-                <td><img [src]="'https://alojamientossanlucar.es/api/uploads/' + casa.imagen_principal" class="thumb">
+              <tr *ngFor="let casa of listaCasas; let i = index">
+
+                <td>
+                  <button class="btn-approve" (click)="moverPropiedad(i, -1)" [disabled]="i === 0"
+                    style="background: #6c757d; color: white; padding: 5px 8px; margin-right: 5px; border: none; cursor: pointer;"
+                    [style.opacity]="i === 0 ? '0.5' : '1'">
+                    <i class="fas fa-arrow-up"></i>
+                  </button>
+                  <button class="btn-approve" (click)="moverPropiedad(i, 1)" [disabled]="i === (listaCasas.length - 1)"
+                    style="background: #6c757d; color: white; padding: 5px 8px; border: none; cursor: pointer;"
+                    [style.opacity]="i === (listaCasas.length - 1) ? '0.5' : '1'">
+                    <i class="fas fa-arrow-down"></i>
+                  </button>
+                </td>
+
+                <td>
+                  <img [src]="'https://alojamientossanlucar.es/api/uploads/' + casa.imagen_principal" class="thumb">
                 </td>
 
                 <td class="text-bold">{{ casa.nombre }}</td>

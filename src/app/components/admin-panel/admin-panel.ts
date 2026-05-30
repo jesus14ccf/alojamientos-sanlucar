@@ -456,7 +456,6 @@ export class AdminPanel implements OnInit {
   }
 
   guardarOrdenFotos() {
-
     const nuevoOrden = this.fotosActuales.map((foto, index) => {
       return {
         id_foto: foto.id_foto,
@@ -470,6 +469,35 @@ export class AdminPanel implements OnInit {
       },
       error: (err: any) => {
         alert('Hubo un error al guardar el orden de las fotos.');
+        console.error(err);
+      },
+    });
+  }
+
+
+  moverPropiedad(indexActual: number, direccion: number) {
+    const nuevaPosicion = indexActual + direccion;
+    if (nuevaPosicion >= 0 && nuevaPosicion < this.listaCasas.length) {
+      const casaMovida = this.listaCasas[indexActual];
+      this.listaCasas[indexActual] = this.listaCasas[nuevaPosicion];
+      this.listaCasas[nuevaPosicion] = casaMovida;
+    }
+  }
+
+  guardarOrdenPropiedades() {
+    const nuevoOrden = this.listaCasas.map((casa, index) => {
+      return {
+        id_propiedad: casa.id_propiedad,
+        orden: index + 1,
+      };
+    });
+
+    this.propiedadService.actualizarOrdenPropiedades(nuevoOrden).subscribe({
+      next: () => {
+        alert('¡El orden de las casas se ha guardado correctamente!');
+      },
+      error: (err) => {
+        alert('Hubo un error al guardar el orden de los alojamientos.');
         console.error(err);
       },
     });

@@ -20,6 +20,7 @@ export interface Propiedad {
   visible?: number;
   expandida?: boolean;
   camas?: string;
+  orden?: number;
 }
 
 export interface Foto {
@@ -43,6 +44,8 @@ export class Propiedades {
     'https://alojamientossanlucar.es/api/get_propiedades.php';
   private URL_RESERVA = 'https://alojamientossanlucar.es/api/reservas.php';
   private URL_orden_fotos = 'https://alojamientossanlucar.es/api/actualizar_orden_fotos.php';
+  private URL_orden_propiedades = 'https://alojamientossanlucar.es/api/actualizar_orden_propiedades.php';
+
 
   constructor(private http: HttpClient) {}
 
@@ -118,4 +121,12 @@ export class Propiedades {
       ordenes: nuevoOrden,
     });
   }
+
+  actualizarOrdenPropiedades(nuevoOrden: any[]): Observable<any> {
+  return this.http.post(this.URL_orden_propiedades, {
+    ordenes: nuevoOrden
+  });
+}
+
+
 }
