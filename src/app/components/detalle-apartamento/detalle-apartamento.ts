@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Propiedades, Propiedad, Foto } from '../../services/propiedades';
@@ -57,6 +58,8 @@ export class DetalleApartamento implements OnInit {
   constructor(
     private propiedadService: Propiedades,
     private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +75,45 @@ export class DetalleApartamento implements OnInit {
     this.propiedadService.getPropiedadesById(id).subscribe({
       next: (data) => {
         this.casa = data;
+
+        this.titleService.setTitle(
+          this.casa.nombre + ' | Alojamientos Sanlucar',
+        );
+
+        this.metaService.updateTag({ property: 'og:type', content: 'website' });
+
+        this.metaService.updateTag({
+          property: 'og:title',
+          content: this.casa.nombre + ' | Alojamientos Sanlúcar',
+        });
+
+        this.metaService.updateTag({
+          property: 'og:description',
+          content:
+            'Mira este alojamiento para nuestras vacaciones en Sanlúcar: ' +
+            this.casa.nombre,
+        });
+
+        const urlImagenCompleta =
+          'https://alojamientossanlucar.es/api/uploads/' +
+          this.casa.imagen_principal;
+        this.metaService.updateTag({
+          property: 'og:image',
+          content: urlImagenCompleta,
+        });
+
+        this.metaService.updateTag({
+          property: 'og:url',
+          content: 'https://alojamientossanlucar.es/apartamento/' + id,
+        });
+
+        this.metaService.updateTag({
+          name: 'description',
+          content:
+            'Alquila ' +
+            this.casa.nombre +
+            ' al mejor precio en Sanlucar de Barrameda. Descubre todos los detalles y reserva tus vacaciones.',
+        });
         this.cargarFotos(id);
 
         this.propiedadService.getOcupacion(id).subscribe({
@@ -174,13 +216,10 @@ export class DetalleApartamento implements OnInit {
 
       if (fechaDelDia < hoy) {
         estaOcupado = true;
-      }
-
-      else if (
+      } else if (
         this.reservasConfirmadas &&
         this.reservasConfirmadas.length > 0
       ) {
-
         const mesStr = String(month + 1).padStart(2, '0');
         const diaStr = String(i).padStart(2, '0');
         const fechaString = `${year}-${mesStr}-${diaStr}`;
@@ -207,6 +246,7 @@ export class DetalleApartamento implements OnInit {
   }
 
   cambiarMes(direccion: number) {
+    this.mesActual.setDate(1);
     this.mesActual.setMonth(this.mesActual.getMonth() + direccion);
     this.generarCalendario();
   }
@@ -250,10 +290,17 @@ export class DetalleApartamento implements OnInit {
       return;
     }
 
+    const formatoLimpio = (fecha: Date) => {
+      const year = fecha.getFullYear();
+      const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+      const dia = String(fecha.getDate()).padStart(2, '0');
+      return `${year}-${mes}-${dia}`;
+    };
+
     const reservaPayload = {
       id_propiedad: this.casa.id_propiedad,
-      fecha_entrada: this.fechaEntrada.toISOString().split('T')[0],
-      fecha_salida: this.fechaSalida.toISOString().split('T')[0],
+      fecha_entrada: formatoLimpio(this.fechaEntrada),
+      fecha_salida: formatoLimpio(this.fechaSalida),
       nombre: this.datosCliente.nombre,
       email: this.datosCliente.email,
       telefono: this.datosCliente.telefono,
@@ -263,7 +310,6 @@ export class DetalleApartamento implements OnInit {
     this.propiedadService.crearReserva(reservaPayload).subscribe({
       next: (respuesta: any) => {
         if (respuesta.status === 'success') {
-
           this.mostrarModalExito = true;
 
           this.datosCliente = {
@@ -289,5 +335,4 @@ export class DetalleApartamento implements OnInit {
   cerrarModalExito() {
     this.mostrarModalExito = false;
   }
-
 }

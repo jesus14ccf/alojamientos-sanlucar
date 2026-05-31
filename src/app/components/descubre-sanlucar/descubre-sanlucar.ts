@@ -1,16 +1,30 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-descubre-sanlucar',
-  standalone:true,
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './descubre-sanlucar.html',
   styleUrl: './descubre-sanlucar.scss',
 })
 export class DescubreSanlucar implements AfterViewInit {
-  ngAfterViewInit() {
 
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+  ) {}
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Descubre Sanlucar | Alojamientos Sanlucar');
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Descubre qué ver y hacer en Sanlucar de Barrameda. Gastronomía, playas, Doñana y los mejores rincones cerca de tu alojamiento.',
+    });
+  }
+  ngAfterViewInit() {
     const observador = new IntersectionObserver(
       (entradas) => {
         entradas.forEach((entrada) => {

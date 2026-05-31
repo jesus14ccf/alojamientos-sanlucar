@@ -1,4 +1,5 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -9,9 +10,24 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home implements AfterViewInit {
-  ngAfterViewInit() {
+export class Home implements AfterViewInit, OnInit {
 
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+  ) {}
+
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Alojamientos Sanlucar | Alquiler Vacacional');
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Reserva los mejores alojamientos turísticos en Sanlucar de Barrameda. Apartamentos y casas vacacionales al mejor precio para tus vacaciones.',
+    });
+  }
+
+  ngAfterViewInit() {
     const observador = new IntersectionObserver(
       (entradas) => {
         entradas.forEach((entrada) => {

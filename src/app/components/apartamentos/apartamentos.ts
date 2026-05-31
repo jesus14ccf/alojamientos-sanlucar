@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -17,9 +18,19 @@ export class Apartamentos implements OnInit {
   fechaEntrada: string = '';
   fechaSalida: string = '';
 
-  constructor(private apiService: Propiedades) {}
+  constructor(
+    private apiService: Propiedades,
+    private titleService: Title,
+    private metaService: Meta,
+  ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Nuestros Alojamientos | Alojamientos Sanlucar');
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Descubre todos nuestros apartamentos y casas vacacionales en Sanlúcar de Barrameda. Encuentra el alojamiento ideal y comprueba la disponibilidad para tus fechas.',
+    });
     this.cargarPropiedades();
   }
 
