@@ -77,21 +77,22 @@ export class DetalleApartamento implements OnInit {
         this.casa = data;
 
         this.titleService.setTitle(
-          this.casa.nombre + ' | Alojamientos Sanlucar',
+          this.casa.nombre + ' | Casa Currito Alojamientos',
         );
 
         this.metaService.updateTag({ property: 'og:type', content: 'website' });
 
         this.metaService.updateTag({
           property: 'og:title',
-          content: this.casa.nombre + ' | Alojamientos Sanlúcar',
+          content: this.casa.nombre + ' | Casa Currito Alojamientos',
         });
 
         this.metaService.updateTag({
           property: 'og:description',
           content:
-            'Mira este alojamiento para nuestras vacaciones en Sanlúcar: ' +
-            this.casa.nombre,
+            'Descubre ' +
+            this.casa.nombre +
+            ', tu alojamiento ideal en Sanlúcar de Barrameda con Casa Currito Alojamientos.',
         });
 
         const urlImagenCompleta =
